@@ -1,26 +1,27 @@
 [
   {
-    "nombre": "vichy negro",
-    "imagen": "imagenes/vichy-negro.jpg"
+    "nombre": "mantel vichy negro",
+    "imagen": "imagenes/vichy-negro.jpg",
+    "categoria": "MANTELERÍA ESTAMPADA"
   },
   {
-    "nombre": "vichy beige",
+    "nombre": "mantel vichy beige",
     "imagen": "imagenes/vichy-beige.jpg"
   },
   {
-    "nombre": "vichy rojo",
+    "nombre": "mantel vichy rojo",
     "imagen": "imagenes/vichy-rojo.jpg"
   },
 {
-    "nombre": "vichy verde",
+    "nombre": "mantel vichy verde manzana",
     "imagen": "imagenes/vichy-verde.jpg"
   },
 {
-    "nombre": "vichy rosa",
+    "nombre": "mantel vichy rosa empolvado",
     "imagen": "imagenes/vichy-rosa.jpg"
   },
 {
-    "nombre": "vichy azul",
+    "nombre": "mantel vichy azul",
     "imagen": "imagenes/vichy-azul.jpg" 
 }
 ]
