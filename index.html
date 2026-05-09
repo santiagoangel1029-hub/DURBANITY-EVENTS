@@ -9,13 +9,43 @@
 
 <body>
 
-<header>
-    <h1>DURBANITY</h1>
-    <p class="subtitulo">Catálogo profesional de mantelería y eventos</p>
+<header class="header">
+
+    <!-- TÍTULO PRINCIPAL -->
+    <h1>DURBANITY EVENTS</h1>
+
+    <!-- LÍNEAS DE COLORES (SE HACEN EN CSS) -->
+    <div class="lineas"></div>
+
+    <!-- BARRA INFERIOR -->
+    <div class="top-bar">
+
+        <!-- SUBTÍTULO IZQUIERDA -->
+        <h2 class="subtitulo-left">Nuestro catálogo:</h2>
+
+        <!-- MENÚ PRODUCTOS -->
+        <div class="menu-productos">
+
+            <button class="btn-main">Productos</button>
+
+            <div class="dropdown">
+                <button onclick="filtrar('manteleria-estampada')">Mantelería estampada</button>
+                <button onclick="filtrar('manteleria-lisa')">Mantelería lisa</button>
+                <button onclick="filtrar('servilletas')">Servilletas</button>
+                <button onclick="filtrar('menaje')">Menaje</button>
+                <button onclick="filtrar('mobiliario')">Mobiliario</button>
+            </div>
+
+        </div>
+
+    </div>
+
 </header>
 
+<!-- BUSCADOR -->
 <input type="text" id="buscador" placeholder="Buscar producto...">
 
+<!-- BOTONES RÁPIDOS (OPCIONAL PERO ÚTIL) -->
 <div class="filtros">
   <button onclick="filtrar('todos')">Todos</button>
   <button onclick="filtrar('manteleria-lisa')">Mantelería lisa</button>
@@ -25,6 +55,7 @@
   <button onclick="filtrar('mobiliario')">Mobiliario</button>
 </div>
 
+<!-- CATÁLOGO -->
 <div id="contenedor" class="grid"></div>
 
 <script src="app.js"></script>
