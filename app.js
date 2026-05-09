@@ -53,3 +53,14 @@ function mostrar(lista) {
         `;
     });
 }
+// ABRIR / CERRAR MENÚ
+function toggleMenu() {
+
+    const menu = document.getElementById("dropdownMenu");
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
