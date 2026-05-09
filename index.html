@@ -3,12 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo Profesional</title>
+<title>Durbanity - Catálogo</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Catálogo de Productos</h1>
+<header>
+    <h1>DURBANITY</h1>
+    <p class="subtitulo">Catálogo profesional de mantelería y eventos</p>
+</header>
+
+<input type="text" id="buscador" placeholder="Buscar producto...">
+
 <div class="filtros">
   <button onclick="filtrar('todos')">Todos</button>
   <button onclick="filtrar('manteleria-lisa')">Mantelería lisa</button>
@@ -17,11 +24,10 @@
   <button onclick="filtrar('menaje')">Menaje</button>
   <button onclick="filtrar('mobiliario')">Mobiliario</button>
 </div>
-  
-<input type="text" id="buscador" placeholder="Buscar producto...">
 
 <div id="contenedor" class="grid"></div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
