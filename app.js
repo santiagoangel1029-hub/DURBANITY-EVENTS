@@ -1,9 +1,5 @@
-const contenedor = document.getElementById("contenedor");
-const buscador = document.getElementById("buscador");
-
 let productos = [];
 
-// Cargar JSON (esto es lo que lo hace escalable)
 fetch("productos.json")
     .then(res => res.json())
     .then(data => {
@@ -11,7 +7,6 @@ fetch("productos.json")
         mostrar(productos);
     });
 
-// Mostrar productos
 function mostrar(lista) {
     contenedor.innerHTML = "";
 
@@ -25,7 +20,17 @@ function mostrar(lista) {
     });
 }
 
-// Búsqueda en tiempo real
+// FILTRO POR CATEGORÍA
+function filtrar(categoria) {
+    if (categoria === "todos") {
+        mostrar(productos);
+    } else {
+        const filtrados = productos.filter(p => p.categoria === categoria);
+        mostrar(filtrados);
+    }
+}
+
+// BUSCADOR (se mantiene)
 buscador.addEventListener("input", (e) => {
     const texto = e.target.value.toLowerCase();
 
