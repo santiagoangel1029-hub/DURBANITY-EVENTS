@@ -1,3 +1,18 @@
+:root {
+    --blanco: #ffffff;
+
+    /* Colores de marca Durbanity */
+    --azul_verde: #1fb6a6; /* DURBANITY */
+    --morado: #6a3df0;     /* EVENTS / acentos */
+    --rosa: #ff4fa3;       /* detalle círculo interior */
+
+    --gris: #f7f7f7;
+    --texto: #222222;
+}
+
+/* ======================
+   ESTILO GENERAL
+====================== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,33 +20,93 @@ body {
     color: var(--texto);
 }
 
+/* ======================
+   HEADER (LOGO / MARCA)
+====================== */
 header {
-    background: var(--negro);
-    color: white;
-    padding: 40px 20px;
+    background: var(--blanco);
     text-align: center;
+    padding: 40px 20px;
+    border-bottom: 2px solid var(--morado);
 }
 
-h1 {
+header h1 {
     margin: 0;
-    font-size: 32px;
-    letter-spacing: 2px;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: var(--azul_verde);
 }
 
 .subtitulo {
-    color: var(--dorado);
-    margin-top: 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--morado);
+    font-weight: bold;
 }
+
+/* ======================
+   BUSCADOR
+====================== */
+#buscador {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+/* ======================
+   FILTROS
+====================== */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.filtros button {
+    padding: 10px 15px;
+    border: 1px solid var(--morado);
+    border-radius: 10px;
+    cursor: pointer;
+    background: var(--blanco);
+    color: var(--texto);
+    transition: 0.2s;
+}
+
+.filtros button:hover {
+    background: var(--morado);
+    color: white;
+}
+
+/* ======================
+   CATÁLOGO
+====================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+/* ======================
+   TARJETAS PRODUCTOS
+====================== */
 .card {
     background: white;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     transition: transform 0.2s;
+    border: 1px solid #eee;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    border-color: var(--rosa);
 }
 
 .card img {
@@ -43,19 +118,16 @@ h1 {
 .card h3 {
     padding: 10px;
     text-align: center;
+    font-size: 14px;
 }
+
+/* ======================
+   TÍTULOS DE CATEGORÍA
+====================== */
 .titulo-categoria {
     margin: 40px 0 20px;
-    font-size: 24px;
-    color: var(--negro);
-    border-left: 5px solid var(--dorado);
+    font-size: 22px;
+    color: var(--morado);
+    border-left: 5px solid var(--rosa);
     padding-left: 10px;
-}
-#buscador {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    margin: 20px 0;
 }
