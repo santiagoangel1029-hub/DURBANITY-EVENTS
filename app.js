@@ -1,36 +1,16 @@
 let productos = [];
 
+const contenedor = document.getElementById("contenedor");
+const buscador = document.getElementById("buscador");
+
 fetch("productos.json")
     .then(res => res.json())
     .then(data => {
         productos = data;
-        mostrar(productos);
+        renderSecciones(productos);
     });
 
-function mostrar(lista) {
-    contenedor.innerHTML = "";
-
-    lista.forEach(p => {
-        contenedor.innerHTML += `
-            <div class="card">
-                <img src="${p.imagen}" loading="lazy">
-                <h3>${p.nombre}</h3>
-            </div>
-        `;
-    });
-}
-
-// FILTRO POR CATEGORÍA
-function filtrar(categoria) {
-    if (categoria === "todos") {
-        mostrar(productos);
-    } else {
-        const filtrados = productos.filter(p => p.categoria === categoria);
-        mostrar(filtrados);
-    }
-}
-
-// BUSCADOR (se mantiene)
+// BUSCADOR
 buscador.addEventListener("input", (e) => {
     const texto = e.target.value.toLowerCase();
 
@@ -38,5 +18,36 @@ buscador.addEventListener("input", (e) => {
         p.nombre.toLowerCase().includes(texto)
     );
 
-    mostrar(filtrados);
+    renderSecciones(filtrados);
 });
+
+// AGRUPAR POR CATEGORÍA
+function renderSecciones(lista) {
+    contenedor.innerHTML = "";
+
+    const categorias = [...new Set(lista.map(p => p.categoria))];
+
+    categorias.forEach(cat => {
+
+        const productosCat = lista.filter(p => p.categoria === cat);
+
+        contenedor.innerHTML += `
+            <h2 class="titulo-categoria">${formatear(cat)}</h2>
+            <div class="grid">
+                ${productosCat.map(p => `
+                    <div class="card">
+                        <img src="${p.imagen}" loading="lazy">
+                        <h3>${p.nombre}</h3>
+                    </div>
+                `).join("")}
+            </div>
+        `;
+    });
+}
+
+// FORMATEAR TEXTO BONITO
+function formatear(texto) {
+    return texto
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, l => l.toUpperCase());
+}
