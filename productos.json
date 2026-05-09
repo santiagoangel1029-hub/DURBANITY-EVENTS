@@ -5,12 +5,12 @@
     "categoria": "manteleria-estampada"
   },
    {
-     "nombre": "Grenoble Gris",
+    "nombre": "Grenoble Gris",
     "imagen": "imagenes/grenoble-grs.jpg",
     "categoria": "manteleria-estampada"
   },
   {
-     "nombre": "Grenoble Cereza",
+    "nombre": "Grenoble Cereza",
     "imagen": "imagenes/grenoble-cereza.jpg",
     "categoria": "manteleria-estampada"
   },
@@ -35,9 +35,9 @@
     "categoria": "manteleria-estampada"
   },
   {
-  "nombre": "Helechos Verdes ",
-  "imagen": "imagenes/helechos-verdes.jpg"  
-  "categoria": "manteleria-estampada"
+    "nombre": "Helechos Verdes",
+    "imagen": "imagenes/helechos-verdes.jpg",
+    "categoria": "manteleria-estampada"
   },
   {
     "nombre": "Mantel Vichy Azul",
