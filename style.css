@@ -1,250 +1,283 @@
 :root {
-    --blanco: #ffffff;
-
-    /* Colores de marca Durbanity */
-    --azul_verde: #1fb6a6; /* DURBANITY */
-    --morado: #6a3df0;     /* EVENTS / acentos */
-    --rosa: #ff4fa3;       /* detalle círculo interior */
-
-    --gris: #f7f7f7;
-    --texto: #222222;
+    --turquesa: #1fb6a6;
+    --morado: #7b2cff;
+    --rosa: #ff4fa3;
+    --gris: #f6f6f6;
+    --texto: #222;
 }
 
-/* ======================
-   ESTILO GENERAL
-====================== */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
+    font-family: Arial, sans-serif;
     background: var(--gris);
     color: var(--texto);
 }
 
-/* ======================
-   HEADER (LOGO / MARCA)
-====================== */
-header {
-    background: var(--blanco);
-    text-align: center;
-    padding: 40px 20px;
-    border-bottom: 2px solid var(--morado);
-}
+/* HERO */
 
-header h1 {
-    margin: 0;
-    font-size: 36px;
-    letter-spacing: 3px;
-    color: var(--azul_verde);
-}
+.hero {
 
-.subtitulo {
-    margin-top: 8px;
-    font-size: 14px;
-    color: var(--morado);
-    font-weight: bold;
-}
+    height: 100vh;
 
-/* ======================
-   BUSCADOR
-====================== */
-#buscador {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    margin: 20px 0;
-    box-sizing: border-box;
-}
+    background-image: url('imagenes/hero.jpg');
 
-/* ======================
-   FILTROS
-====================== */
-.filtros {
+    background-size: cover;
+
+    background-position: center;
+
+    position: relative;
+
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+
     justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.35);
+}
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    color: white;
+
+    padding: 20px;
+}
+
+.logo {
+
+    width: 220px;
+
     margin-bottom: 20px;
 }
 
-.filtros button {
-    padding: 10px 15px;
-    border: 1px solid var(--morado);
-    border-radius: 10px;
-    cursor: pointer;
-    background: var(--blanco);
-    color: var(--texto);
-    transition: 0.2s;
+.hero-content h1 {
+
+    font-size: 50px;
+
+    margin-bottom: 10px;
 }
 
-.filtros button:hover {
-    background: var(--morado);
+.hero-content p {
+
+    font-size: 18px;
+
+    margin-bottom: 25px;
+}
+
+.hero-content button {
+
+    background: linear-gradient(90deg, var(--turquesa), var(--morado));
+
     color: white;
+
+    border: none;
+
+    padding: 14px 24px;
+
+    border-radius: 40px;
+
+    cursor: pointer;
+
+    font-size: 16px;
 }
 
-/* ======================
-   CATÁLOGO
-====================== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-/* ======================
-   TARJETAS PRODUCTOS
-====================== */
-.card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
-    border: 1px solid #eee;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    border-color: var(--rosa);
-}
-
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
-
-.card h3 {
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-}
-
-/* ======================
-   TÍTULOS DE CATEGORÍA
-====================== */
-.titulo-categoria {
-    margin: 40px 0 20px;
-    font-size: 22px;
-    color: var(--morado);
-    border-left: 5px solid var(--rosa);
-    padding-left: 10px;
-}
-/* ======================
-   HEADER PRINCIPAL
-====================== */
+/* HEADER */
 
 .header {
-    background: white;
-    padding: 25px 20px;
-    border-bottom: 2px solid #ddd;
-    text-align: center;
-}
 
-/* TÍTULO PRINCIPAL */
-.header h1 {
-    margin: 0;
-    font-size: 34px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-
-    /* fondo de letras azul celeste */
-    display: inline-block;
-    padding: 5px 15px;
-    background: #7fd3ff;
-    color: white;
-    border-radius: 6px;
-}
-
-/* LÍNEAS BAJO TÍTULO */
-.lineas {
-    width: 180px;
-    height: 6px;
-    margin: 10px auto;
-    position: relative;
-}
-
-.lineas::before,
-.lineas::after {
-    content: "";
-    position: absolute;
-    height: 3px;
-    width: 50%;
-    top: 0;
-}
-
-.lineas::before {
-    left: 0;
-    background: #6a3df0; /* violeta */
-}
-
-.lineas::after {
-    right: 0;
-    background: #6a00ff; /* morado */
-}
-
-/* ======================
-   SUBTÍTULO IZQUIERDA
-====================== */
-
-.top-bar {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-    margin-top: 20px;
+
+    padding: 25px;
+
+    background: white;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
-.subtitulo-left {
-    font-size: 18px;
-    color: #222;
+.header h2 {
     margin: 0;
 }
 
-/* ======================
-   BOTÓN PRODUCTOS
-====================== */
+/* BOTÓN PRODUCTOS */
 
 .menu-productos {
     position: relative;
 }
 
 .btn-main {
-    padding: 10px 15px;
-    background: #1fb6a6;
+
+    background: linear-gradient(90deg, var(--turquesa), var(--morado));
+
     color: white;
+
     border: none;
-    border-radius: 8px;
+
+    padding: 12px 20px;
+
+    border-radius: 14px;
+
     cursor: pointer;
+
+    font-weight: bold;
 }
 
-/* dropdown */
+/* DROPDOWN */
+
 .dropdown {
+
     display: none;
+
     position: absolute;
+
+    top: 55px;
+
     right: 0;
-    top: 40px;
+
     background: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    border-radius: 10px;
+
+    min-width: 240px;
+
+    border-radius: 16px;
+
     overflow: hidden;
-    z-index: 10;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
-.menu-productos:hover .dropdown {
+.dropdown.show {
     display: block;
 }
 
 .dropdown button {
-    display: block;
-    width: 200px;
-    padding: 10px;
+
+    width: 100%;
+
     border: none;
+
     background: white;
+
+    padding: 15px;
+
     text-align: left;
+
     cursor: pointer;
 }
 
 .dropdown button:hover {
-    background: #f0f0f0;
+
+    background: #f4f4f4;
+
+    color: var(--morado);
+}
+
+/* BUSCADOR */
+
+.buscador-container {
+    padding: 25px;
+}
+
+#buscador {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    border: 1px solid #ddd;
+
+    font-size: 16px;
+}
+
+/* CATÁLOGO */
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 25px;
+
+    padding: 25px;
+}
+
+/* TARJETAS */
+
+.card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+
+    width: 100%;
+
+    height: 300px;
+
+    object-fit: cover;
+}
+
+.card h3 {
+
+    padding: 16px;
+
+    margin: 0;
+
+    text-align: center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .hero-content h1 {
+        font-size: 34px;
+    }
+
+    .header {
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
 }
