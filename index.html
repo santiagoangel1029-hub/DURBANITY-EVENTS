@@ -9,7 +9,15 @@
 <body>
 
 <h1>Catálogo de Productos</h1>
-
+<div class="filtros">
+  <button onclick="filtrar('todos')">Todos</button>
+  <button onclick="filtrar('manteleria-lisa')">Mantelería lisa</button>
+  <button onclick="filtrar('manteleria-estampada')">Mantelería estampada</button>
+  <button onclick="filtrar('servilletas')">Servilletas</button>
+  <button onclick="filtrar('menaje')">Menaje</button>
+  <button onclick="filtrar('mobiliario')">Mobiliario</button>
+</div>
+  
 <input type="text" id="buscador" placeholder="Buscar producto...">
 
 <div id="contenedor" class="grid"></div>
