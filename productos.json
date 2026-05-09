@@ -4,6 +4,16 @@
     "imagen": "imagenes/mantel-vichy-negro.jpg",
     "categoria": "manteleria-estampada"
   },
+   {
+     "nombre": "Grenoble Gris",
+    "imagen": "imagenes/grenoble-grs.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+     "nombre": "Grenoble Cereza",
+    "imagen": "imagenes/grenoble-cereza.jpg",
+    "categoria": "manteleria-estampada"
+  },
   {
     "nombre": "Mantel Vichy Beige",
     "imagen": "imagenes/mantel-vichy-beige.jpg",
