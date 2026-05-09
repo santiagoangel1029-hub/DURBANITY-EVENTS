@@ -1,41 +1,41 @@
 [
   {
-    "nombre": "mantel vichy negro",
+    "nombre": "Mantel Vichy Negro",
     "imagen": "imagenes/mantel-vichy-negro.jpg",
     "categoria": "manteleria-estampada"
   },
   {
-    "nombre": "mantel vichy beige",
+    "nombre": "Mantel Vichy Beige",
     "imagen": "imagenes/mantel-vichy-beige.jpg",
     "categoria": "manteleria-estampada"
   },
   {
-    "nombre": "mantel vichy rojo",
+    "nombre": "Mantel Vichy Rojo",
     "imagen": "imagenes/mantel-vichy-rojo.jpg",
     "categoria": "manteleria-estampada"
   },
   {
-    "nombre": "mantel vichy verde manzana",
+    "nombre": "Mantel Vichy Verde Manzana",
     "imagen": "imagenes/mantel-vichy-verde-manzana.jpg",
     "categoria": "manteleria-estampada"
   },
   {
-    "nombre": "mantel vichy rosa empolvado",
+    "nombre": "Mantel Vichy Rosa Empolvado",
     "imagen": "imagenes/mantel-vichy-rosa-empolvado.jpg",
     "categoria": "manteleria-estampada"
   },
   {
-  "nombre": "helechos verdes ",
+  "nombre": "Helechos Verdes ",
   "imagen": "imagenes/helechos-verdes.jpg",
   "categoria": "manteleria-estampada-"
   },
    {
-    "nombre": "helechos verdes ",
+    "nombre": "Helechos Verdes ",
     "imagen": "imagenes/helechos-verdess.jpg",
     "categoria": "manteleria-estampada-"
   },
   {
-    "nombre": "mantel vichy azul",
+    "nombre": "Mantel Vichy Azul",
     "imagen": "imagenes/mantel-vichy-azul.jpg",
     "categoria": "manteleria-estampada"
   }
