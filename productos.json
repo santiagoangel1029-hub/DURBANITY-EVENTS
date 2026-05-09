@@ -14,19 +14,19 @@
     "imagen": "imagenes/mantel-vichy-rojo.jpg",
     "categoria": "manteleria-estampada"
   },
-{
+  {
     "nombre": "mantel vichy verde manzana",
     "imagen": "imagenes/mantel-vichy-verde-manzana.jpg",
     "categoria": "manteleria-estampada"
   },
-{
+  {
     "nombre": "mantel vichy rosa empolvado",
     "imagen": "imagenes/mantel-vichy-rosa-empolvado.jpg",
     "categoria": "manteleria-estampada"
   },
-{
+  {
     "nombre": "mantel vichy azul",
     "imagen": "imagenes/mantel-vichy-azul.jpg",
     "categoria": "manteleria-estampada"
-}
+  }
 ]
