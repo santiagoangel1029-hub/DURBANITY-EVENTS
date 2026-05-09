@@ -24,6 +24,12 @@
     "imagen": "imagenes/mantel-vichy-rosa-empolvado.jpg",
     "categoria": "manteleria-estampada"
   },
+   {
+    "nombre": "helechos verdes ",
+    "imagen": "imagenes/helechos-verdes-1.jpg",
+     "imagen": "imagenes/helechos-verdes.jpg",
+    "categoria": "manteleria-estampada-"
+  },
   {
     "nombre": "mantel vichy azul",
     "imagen": "imagenes/mantel-vichy-azul.jpg",
