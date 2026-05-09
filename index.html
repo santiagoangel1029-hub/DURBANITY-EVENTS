@@ -1,55 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Durbanity - Catálogo</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durbanity - Catálogo</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="header">
+    <!-- ======================
+         HEADER / MARCA
+    ======================= -->
 
-    <!-- TÍTULO PRINCIPAL -->
-    <h1>DURBANITY EVENTS</h1>
+    <header class="header">
 
-    <!-- LÍNEAS DE COLORES (SE HACEN EN CSS) -->
-    <div class="lineas"></div>
+        <!-- TÍTULO -->
+        <h1>DURBANITY EVENTS</h1>
 
-    <!-- BARRA INFERIOR -->
-    <div class="top-bar">
+        <!-- LÍNEAS -->
+        <div class="lineas"></div>
 
-        <!-- SUBTÍTULO IZQUIERDA -->
-        <h2 class="subtitulo-left">Nuestro catálogo:</h2>
+        <!-- BARRA SUPERIOR -->
+        <div class="top-bar">
 
-        <!-- MENÚ PRODUCTOS -->
-        <div class="menu-productos">
+            <!-- TEXTO IZQUIERDA -->
+            <h2 class="subtitulo-left">
+                Nuestro catálogo:
+            </h2>
 
-            <button class="btn-main">Productos</button>
+            <!-- MENÚ PRODUCTOS -->
+            <div class="menu-productos">
 
-            <div class="dropdown">
-                <button onclick="filtrar('manteleria-estampada')">Mantelería estampada</button>
-                <button onclick="filtrar('manteleria-lisa')">Mantelería lisa</button>
-                <button onclick="filtrar('servilletas')">Servilletas</button>
-                <button onclick="filtrar('menaje')">Menaje</button>
-                <button onclick="filtrar('mobiliario')">Mobiliario</button>
+                <button class="btn-main" onclick="toggleMenu()">
+                    Productos ▾
+                </button>
+
+                <!-- MENÚ DESPLEGABLE -->
+                <div class="dropdown" id="dropdownMenu">
+
+                    <button onclick="filtrar('manteleria-estampada')">
+                        Mantelería estampada
+                    </button>
+
+                    <button onclick="filtrar('manteleria-lisa')">
+                        Mantelería lisa
+                    </button>
+
+                    <button onclick="filtrar('servilletas')">
+                        Servilletas
+                    </button>
+
+                    <button onclick="filtrar('menaje')">
+                        Menaje
+                    </button>
+
+                    <button onclick="filtrar('mobiliario')">
+                        Mobiliario
+                    </button>
+
+                </div>
+
             </div>
 
         </div>
 
+    </header>
+
+    <!-- ======================
+         BUSCADOR
+    ======================= -->
+
+    <div class="buscador-container">
+
+        <input
+            type="text"
+            id="buscador"
+            placeholder="Buscar producto..."
+        >
+
     </div>
 
-</header>
+    <!-- ======================
+         CATÁLOGO
+    ======================= -->
 
-<!-- BUSCADOR -->
-<input type="text" id="buscador" placeholder="Buscar producto...">
+    <div id="contenedor" class="grid"></div>
 
-    
-<!-- CATÁLOGO -->
-<div id="contenedor" class="grid"></div>
+    <!-- ======================
+         JAVASCRIPT
+    ======================= -->
 
-<script src="app.js"></script>
+    <script src="app.js"></script>
 
 </body>
+
 </html>
