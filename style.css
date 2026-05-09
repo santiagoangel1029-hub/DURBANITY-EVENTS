@@ -14,6 +14,8 @@
    ESTILO GENERAL
 ====================== */
 body {
+    background:red !important;
+}
     font-family: Arial, sans-serif;
     margin: 0;
     background: var(--gris);
