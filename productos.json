@@ -1,14 +1,26 @@
 [
   {
     "nombre": "vichy negro",
-    "imagen": "imagenes/vichy negro.jpg"
+    "imagen": "imagenes/vichy-negro.jpg"
   },
   {
     "nombre": "vichy beige",
-    "imagen": "imagenes/vichy beige.jpg"
+    "imagen": "imagenes/vichy-beige.jpg"
   },
   {
     "nombre": "vichy rojo",
-    "imagen": "imagenes/vichy rojo.jpg"
-  }
+    "imagen": "imagenes/vichy-rojo.jpg"
+  },
+{
+    "nombre": "vichy verde",
+    "imagen": "imagenes/vichy-verde.jpg"
+  },
+{
+    "nombre": "vichy rosa",
+    "imagen": "imagenes/vichy-rosa.jpg"
+  },
+{
+    "nombre": "vichy azul",
+    "imagen": "imagenes/vichy-azul.jpg" 
+},
 ]
