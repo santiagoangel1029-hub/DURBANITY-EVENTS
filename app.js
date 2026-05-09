@@ -64,3 +64,10 @@ function toggleMenu() {
         menu.style.display = "block";
     }
 }
+function scrollCatalogo() {
+
+    window.scrollTo({
+        top: 700,
+        behavior: "smooth"
+    });
+}
