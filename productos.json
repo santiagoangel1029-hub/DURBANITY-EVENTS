@@ -4,6 +4,111 @@
     "imagen": "imagenes/mantel-vichy-negro.jpg",
     "categoria": "manteleria-estampada"
   },
+  {
+    "nombre": "Martina",
+    "imagen": "imagenes/martina.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Tramontana",
+    "imagen": "imagenes/tramontana.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Provenza",
+    "imagen": "imagenes/provenza.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Gante",
+    "imagen": "imagenes/gante.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Bristol",
+    "imagen": "imagenes/bristol.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Flores Jade Piedra",
+    "imagen": "imagenes/flores-jade-piedra.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Bombay",
+    "imagen": "imagenes/bombay.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Luxor",
+    "imagen": "imagenes/luxor.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Bosco",
+    "imagen": "imagenes/bosco.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Rayas Jade- Verde Líquen",
+    "imagen": "imagenes/rayas-jade-verde-liquen.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Rayas Albero",
+    "imagen": "imagenes/rayas-albero.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Rayas Negro",
+    "imagen": "imagenes/rayas-negro.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Cadenas Azul Cobalto",
+    "imagen": "imagenes/cadenas.azul-cobalto.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Cadenas Púrpura",
+    "imagen": "imagenes/cadenas-purpura.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Cadenas Verde",
+    "imagen": "imagenes/cadenas-verde.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Cadenas Cairo",
+    "imagen": "imagenes/cadenas-cairo.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Orleans",
+    "imagen": "imagenes/orleans.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Sicilia-Rayas Blanco Amarillo",
+    "imagen": "imagenes/sicilia-rayas-blanco-amarillo.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Sicilia-Rayas Blanco Azul",
+    "imagen": "imagenes/sicilia-rayas-blanco-azul.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Geométrico Fucsia",
+    "imagen": "imagenes/geometrico-fucsia.jpg",
+    "categoria": "manteleria-estampada"
+  },
+  {
+    "nombre": "Barbados",
+    "imagen": "imagenes/barbados.jpg",
+    "categoria": "manteleria-estampada"
+  },
    {
     "nombre": "Grenoble Gris",
     "imagen": "imagenes/grenoble-gris.jpg",
