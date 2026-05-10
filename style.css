@@ -830,3 +830,90 @@ body {
 
     border: 2px solid #c9f3d9;
 }
+/* ======================
+   FIX BUSCADOR ENTREGAS
+====================== */
+
+.search-wrapper {
+    position: relative;
+}
+
+/* IMPORTANTE: caja del buscador */
+.search-box {
+    position: relative;
+    width: 0;
+    overflow: visible;
+    transition: 0.3s ease;
+}
+
+.search-box.active {
+    width: 380px;
+}
+
+/* INPUT SIEMPRE VISIBLE CUANDO ABRE */
+.search-box input {
+    width: 100%;
+}
+
+/* ======================
+   SUGERENCIAS (ARREGLADO)
+====================== */
+
+.sugerencias {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    z-index: 99999;
+
+    display: none;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.sugerencia-item {
+    padding: 12px 14px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sugerencia-item:hover {
+    background: #f3f3f3;
+}
+
+/* ======================
+   FIX PANEL PEDIDOS
+====================== */
+
+.panel {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+/* ======================
+   FIX BOTÓN ACEPTAR
+====================== */
+
+#btnAceptar {
+    display: block;
+    margin-top: 15px;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* ======================
+   FIX Z-INDEX GENERAL
+====================== */
+
+.search-wrapper,
+.search-box,
+.sugerencias {
+    z-index: 1000;
+}
