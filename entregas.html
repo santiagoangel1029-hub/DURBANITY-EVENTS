@@ -18,80 +18,99 @@
 
     <div class="pedido-container">
 
-        <h1>🚚 Hoja de Entregas</h1>
+        <h1>🚚 Pedidos de Entregas</h1>
 
-        <form class="formulario-entrega">
+        <!-- CLIENTE -->
 
-            <input type="text"
-                   placeholder="Nombre cliente">
+        <div class="cliente-box">
 
-            <input type="text"
-                   placeholder="Dirección entrega">
+            <input
+                type="text"
+                id="cliente"
+                placeholder="Nombre del cliente"
+            >
 
-            <input type="date">
+        </div>
 
-        </form>
+        <!-- CATÁLOGO -->
 
-        <div id="listaPedidos"></div>
+        <div id="catalogoPedidos"
+             class="grid-pedidos">
 
-        <div class="pedido-botones">
+        </div>
 
-            <button onclick="window.print()">
-                🖨️ Imprimir
-            </button>
+        <!-- BOTÓN GUARDAR -->
 
-            <button onclick="vaciarPedido()">
-                🗑️ Vaciar hoja
+        <div class="guardar-box">
+
+            <button onclick="guardarPedido()">
+                💾 Guardar pedido
             </button>
 
         </div>
+
+        <!-- PEDIDOS GUARDADOS -->
+
+        <h2 class="titulo-guardados">
+            Pedidos guardados
+        </h2>
+
+        <div id="pedidosGuardados"></div>
 
     </div>
 
 <script>
 
-const lista =
-    document.getElementById("listaPedidos");
+let productos = [];
 
-let pedidos =
-    JSON.parse(localStorage.getItem("pedido")) || [];
+let pedidoActual = [];
 
-function renderPedidos() {
+/* ======================
+   CARGAR PRODUCTOS
+====================== */
 
-    lista.innerHTML = "";
+fetch("productos.json")
+    .then(res => res.json())
+    .then(data => {
 
-    if (pedidos.length === 0) {
+        productos = data;
 
-        lista.innerHTML = `
-            <p class="pedido-vacio">
-                No hay artículos añadidos
-            </p>
-        `;
+        renderCatalogo();
 
-        return;
-    }
+    });
 
-    pedidos.forEach((p, index) => {
+/* ======================
+   CATÁLOGO
+====================== */
 
-        lista.innerHTML += `
+function renderCatalogo() {
 
-            <div class="pedido-card">
+    const catalogo =
+        document.getElementById("catalogoPedidos");
 
-                <div>
+    catalogo.innerHTML = "";
 
-                    <h3>${p.nombre}</h3>
+    productos.forEach(p => {
 
-                    <p>
-                        Cantidad: ${p.cantidad}
-                    </p>
+        catalogo.innerHTML += `
 
-                </div>
+            <div class="pedido-producto">
+
+                <img src="${p.imagen}">
+
+                <h3>${p.nombre}</h3>
+
+                <input
+                    type="number"
+                    min="1"
+                    value="1"
+                    id="cantidad-${p.nombre}"
+                >
 
                 <button
-                    class="btn-eliminar"
-                    onclick="eliminarPedido(${index})">
+                    onclick="agregarProducto('${p.nombre}')">
 
-                    ✖
+                    Añadir
 
                 </button>
 
@@ -101,28 +120,162 @@ function renderPedidos() {
     });
 }
 
+/* ======================
+   AGREGAR PRODUCTO
+====================== */
+
+function agregarProducto(nombre) {
+
+    const input =
+        document.getElementById(
+            `cantidad-${nombre}`
+        );
+
+    const cantidad =
+        parseInt(input.value) || 1;
+
+    pedidoActual.push({
+
+        nombre,
+        cantidad
+
+    });
+
+    alert(nombre + " añadido");
+}
+
+/* ======================
+   GUARDAR PEDIDO
+====================== */
+
+function guardarPedido() {
+
+    const cliente =
+        document.getElementById("cliente").value;
+
+    if (!cliente) {
+
+        alert("Escribe nombre cliente");
+
+        return;
+    }
+
+    if (pedidoActual.length === 0) {
+
+        alert("No hay productos");
+
+        return;
+    }
+
+    const pedidos =
+        JSON.parse(
+            localStorage.getItem(
+                "pedidos-entregas"
+            )
+        ) || [];
+
+    pedidos.push({
+
+        cliente,
+        productos: pedidoActual
+
+    });
+
+    localStorage.setItem(
+        "pedidos-entregas",
+        JSON.stringify(pedidos)
+    );
+
+    pedidoActual = [];
+
+    document.getElementById("cliente").value = "";
+
+    mostrarPedidos();
+
+    alert("Pedido guardado");
+}
+
+/* ======================
+   MOSTRAR PEDIDOS
+====================== */
+
+function mostrarPedidos() {
+
+    const contenedor =
+        document.getElementById(
+            "pedidosGuardados"
+        );
+
+    const pedidos =
+        JSON.parse(
+            localStorage.getItem(
+                "pedidos-entregas"
+            )
+        ) || [];
+
+    contenedor.innerHTML = "";
+
+    pedidos.forEach((pedido, index) => {
+
+        contenedor.innerHTML += `
+
+            <div class="pedido-guardado">
+
+                <div class="pedido-top">
+
+                    <h3>
+                        📦 ${pedido.cliente}
+                    </h3>
+
+                    <button
+                        class="btn-delete"
+                        onclick="eliminarPedido(${index})">
+
+                        ✖
+
+                    </button>
+
+                </div>
+
+                ${pedido.productos.map(p => `
+
+                    <p>
+                        ${p.nombre}
+                        x${p.cantidad}
+                    </p>
+
+                `).join("")}
+
+            </div>
+
+        `;
+    });
+}
+
+/* ======================
+   ELIMINAR
+====================== */
+
 function eliminarPedido(index) {
+
+    const pedidos =
+        JSON.parse(
+            localStorage.getItem(
+                "pedidos-entregas"
+            )
+        ) || [];
 
     pedidos.splice(index, 1);
 
     localStorage.setItem(
-        "pedido",
+        "pedidos-entregas",
         JSON.stringify(pedidos)
     );
 
-    renderPedidos();
+    mostrarPedidos();
 }
 
-function vaciarPedido() {
-
-    localStorage.removeItem("pedido");
-
-    pedidos = [];
-
-    renderPedidos();
-}
-
-renderPedidos();
+mostrarPedidos();
 
 </script>
 
