@@ -60,3 +60,40 @@ function agregarProducto(id) {
 
     // Aquí luego conectamos cantidades y formulario
 }
+/* ======================
+   TOGGLE BUSCADOR
+====================== */
+function toggleSearch() {
+    const box = document.getElementById("searchBox");
+    if (!box) return;
+
+    box.classList.toggle("active");
+}
+
+/* ======================
+   PASO 2
+====================== */
+function irPaso2() {
+
+    document.getElementById("paso1").classList.add("oculto");
+    document.getElementById("paso2").classList.remove("oculto");
+}
+
+/* ======================
+   GUARDAR PEDIDO (BASE)
+====================== */
+function guardarPedido() {
+
+    alert("Pedido guardado (pendiente de lógica final)");
+}
+
+/* ======================
+   ENTREGAS PENDIENTES
+====================== */
+function toggleEntregas() {
+
+    const panel = document.getElementById("entregasPanel");
+    if (!panel) return;
+
+    panel.classList.toggle("oculto");
+}
