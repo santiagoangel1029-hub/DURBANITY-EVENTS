@@ -71,3 +71,10 @@ function scrollCatalogo() {
         behavior: "smooth"
     });
 }
+function scrollCatalogo() {
+
+    window.scrollTo({
+        top: 700,
+        behavior: "smooth"
+    });
+}
