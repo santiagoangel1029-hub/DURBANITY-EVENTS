@@ -1,22 +1,29 @@
 let productos = [];
+let carrito = [];
 
 const contenedor = document.getElementById("contenedor");
 const buscador = document.getElementById("buscador");
+const sugerencias = document.getElementById("sugerencias");
 
-// Cargar datos
+// CARGAR PRODUCTOS
 fetch("productos.json")
     .then(res => res.json())
     .then(data => {
         productos = data;
-        contenedor.innerHTML = ""; // NO mostrar nada al inicio
+        contenedor.innerHTML = "";
     });
 
-// 🔎 BUSCADOR (muestra solo si hay texto)
+/* ======================
+   BUSCADOR
+====================== */
+
 buscador.addEventListener("input", (e) => {
+
     const texto = e.target.value.toLowerCase();
 
     if (texto === "") {
         contenedor.innerHTML = "";
+        sugerencias.style.display = "none";
         return;
     }
 
@@ -25,108 +32,16 @@ buscador.addEventListener("input", (e) => {
     );
 
     mostrar(filtrados);
-});
 
-// 📦 FILTRO POR CATEGORÍA
-function filtrar(categoria) {
-
-    if (categoria === "todos") {
-        contenedor.innerHTML = "";
-        return;
-    }
-
-    const filtrados = productos.filter(p => p.categoria === categoria);
-
-    mostrar(filtrados);
-}
-
-// 🖼️ MOSTRAR PRODUCTOS
-function mostrar(lista) {
-    contenedor.innerHTML = "";
-
-    lista.forEach(p => {
-        contenedor.innerHTML += `
-            <div class="card">
-                <img src="${p.imagen}" loading="lazy">
-                <h3>${p.nombre}</h3>
-            </div>
-        `;
-    });
-}
-// ABRIR / CERRAR MENÚ
-function toggleMenu() {
-
-    const menu = document.getElementById("dropdownMenu");
-
-    if (menu.style.display === "block") {
-        menu.style.display = "none";
-    } else {
-        menu.style.display = "block";
-    }
-}
-function scrollCatalogo() {
-
-    window.scrollTo({
-        top: 700,
-        behavior: "smooth"
-    });
-}
-function scrollCatalogo() {
-
-    window.scrollTo({
-        top: 700,
-        behavior: "smooth"
-    });
-}
-/* ======================
-   BUSCADOR PREMIUM
-====================== */
-
-const searchBox = document.getElementById("searchBox");
-const sugerencias = document.getElementById("sugerencias");
-
-// ABRIR / CERRAR
-function toggleSearch() {
-
-    searchBox.classList.toggle("active");
-
-    buscador.focus();
-}
-
-/* ======================
-   SUGERENCIAS EN VIVO
-====================== */
-
-buscador.addEventListener("input", (e) => {
-
-    const texto = e.target.value.toLowerCase();
-
-    if (texto.length === 0) {
-
-        sugerencias.style.display = "none";
-
-        return;
-    }
-
-    const coincidencias = productos.filter(p =>
-        p.nombre.toLowerCase().includes(texto)
-    );
-
-    // SOLO TEXTO
-    sugerencias.innerHTML = coincidencias
-        .slice(0, 5)
-        .map(p => `
-            <div class="sugerencia-item">
-                ${p.nombre}
-            </div>
-        `)
-        .join("");
+    sugerencias.innerHTML = filtrados.slice(0, 5).map(p => `
+        <div class="sugerencia-item">${p.nombre}</div>
+    `).join("");
 
     sugerencias.style.display = "block";
 });
 
 /* ======================
-   ENTER = MOSTRAR PRODUCTOS
+   ENTER BUSCADOR
 ====================== */
 
 buscador.addEventListener("keypress", (e) => {
@@ -140,13 +55,12 @@ buscador.addEventListener("keypress", (e) => {
         );
 
         mostrar(filtrados);
-
         sugerencias.style.display = "none";
     }
 });
 
 /* ======================
-   CLICK EN SUGERENCIA
+   CLICK SUGERENCIAS
 ====================== */
 
 sugerencias.addEventListener("click", (e) => {
@@ -155,14 +69,90 @@ sugerencias.addEventListener("click", (e) => {
 
         buscador.value = e.target.innerText;
 
-        const texto = buscador.value.toLowerCase();
-
         const filtrados = productos.filter(p =>
-            p.nombre.toLowerCase().includes(texto)
+            p.nombre.toLowerCase().includes(buscador.value.toLowerCase())
         );
 
         mostrar(filtrados);
-
         sugerencias.style.display = "none";
     }
 });
+
+/* ======================
+   FILTROS
+====================== */
+
+function filtrar(categoria) {
+
+    const filtrados = productos.filter(p => p.categoria === categoria);
+
+    mostrar(filtrados);
+}
+
+/* ======================
+   MOSTRAR PRODUCTOS
+====================== */
+
+function mostrar(lista) {
+
+    contenedor.innerHTML = "";
+
+    lista.forEach(p => {
+
+        contenedor.innerHTML += `
+            <div class="card">
+                <img src="${p.imagen}" loading="lazy">
+                <h3>${p.nombre}</h3>
+
+                <button onclick="agregarAlPedido(${p.id})">
+                    Añadir al pedido
+                </button>
+            </div>
+        `;
+    });
+}
+
+/* ======================
+   PEDIDOS (CARRITO)
+====================== */
+
+function agregarAlPedido(id) {
+
+    const producto = productos.find(p => p.id === id);
+
+    carrito.push(producto);
+
+    console.log("Carrito:", carrito);
+}
+
+/* ======================
+   MENÚ PRODUCTOS
+====================== */
+
+function toggleMenu() {
+
+    document.getElementById("dropdownMenu")
+        .classList.toggle("show");
+}
+
+/* ======================
+   MENÚ PEDIDOS
+====================== */
+
+function togglePedidos() {
+
+    document.getElementById("dropdownPedidos")
+        .classList.toggle("show");
+}
+
+/* ======================
+   SCROLL HERO
+====================== */
+
+function scrollCatalogo() {
+
+    window.scrollTo({
+        top: 700,
+        behavior: "smooth"
+    });
+}
