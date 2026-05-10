@@ -8,7 +8,13 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-.oculto{ display:none; }
+.oculto{display:none;}
+.panel{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+}
 </style>
 
 </head>
@@ -38,11 +44,10 @@
 
 </div>
 
-<!-- aquí se ven productos añadidos -->
 <div id="seleccionados"></div>
 
 <button onclick="irPaso2()" class="btn-main">
-Aceptar productos
+Aceptar
 </button>
 
 </div>
@@ -55,22 +60,8 @@ Aceptar productos
 <input id="cliente" placeholder="Cliente">
 <input id="dirEntrega" placeholder="Dirección de entrega">
 <input id="dirRecogida" placeholder="Dirección de recogida">
-
 <input id="fechaEntrega" type="datetime-local">
 <input id="fechaRecogida" type="datetime-local">
-
-<button onclick="irPaso3()" class="btn-main">
-Continuar
-</button>
-
-</div>
-
-<!-- PASO 3 -->
-<div id="paso3" class="oculto">
-
-<h2>3. Confirmar pedido</h2>
-
-<p>Revisa la información antes de guardar</p>
 
 <button onclick="guardarPedido()" class="btn-main">
 Realizar pedido
@@ -78,11 +69,12 @@ Realizar pedido
 
 </div>
 
-<hr>
+<!-- BOTÓN ENTREGAS PENDIENTES -->
+<button onclick="toggleEntregas()" class="btn-main">
+Entregas pendientes
+</button>
 
-<h2>Entregas pendientes</h2>
-
-<div id="lista"></div>
+<div id="entregasPanel" class="panel oculto"></div>
 
 </div>
 
