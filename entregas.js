@@ -1,66 +1,56 @@
 window.productos = [];
 window.seleccionados = [];
 
-/* ======================
-   CARGA PRODUCTOS
-====================== */
+let buscador, catalogo, seleccionados, btnAceptar;
 
-fetch("./productos.json")
-.then(res => res.json())
-.then(data => {
-    window.productos = data;
-    mostrarTodos();
+document.addEventListener("DOMContentLoaded", () => {
+
+    buscador = document.getElementById("buscador");
+    catalogo = document.getElementById("catalogoBusqueda");
+    seleccionados = document.getElementById("seleccionados");
+    btnAceptar = document.getElementById("btnAceptar");
+
+    /* CARGAR PRODUCTOS */
+    fetch("./productos.json")
+        .then(res => res.json())
+        .then(data => {
+            window.productos = data;
+            renderProductos(window.productos);
+        });
+
+    /* BUSCADOR */
+    buscador.addEventListener("input", (e) => {
+
+        const texto = e.target.value.toLowerCase().trim();
+
+        if (!texto) {
+            renderProductos(window.productos);
+            return;
+        }
+
+        const filtrados = window.productos.filter(p =>
+            p.nombre.toLowerCase().includes(texto)
+        );
+
+        renderProductos(filtrados);
+    });
 });
 
 /* ======================
-   ELEMENTOS
+   RENDER PRODUCTOS
 ====================== */
 
-const buscador = document.getElementById("buscador");
-const catalogo = document.getElementById("catalogoBusqueda");
-const btnAceptar = document.getElementById("btnAceptar");
-const seleccionados = document.getElementById("seleccionados");
-
-/* ======================
-   MOSTRAR TODOS
-====================== */
-
-function mostrarTodos() {
+function renderProductos(lista) {
 
     if (!catalogo) return;
 
-    catalogo.innerHTML = window.productos.map(p => `
+    catalogo.innerHTML = lista.map(p => `
         <div class="card" onclick="agregarProducto(${p.id})" style="cursor:pointer;">
-            <img src="${p.imagen}">
+            <img src="${p.imagen}" loading="lazy">
             <h3>${p.nombre}</h3>
         </div>
     `).join("");
 }
-
-/* ======================
-   BUSCADOR
-====================== */
-
-buscador.addEventListener("input", (e) => {
-
-    const texto = e.target.value.toLowerCase().trim();
-
-    if (!texto) {
-        mostrarTodos();
-        return;
-    }
-
-    const filtrados = window.productos.filter(p =>
-        p.nombre.toLowerCase().includes(texto)
-    );
-
-    catalogo.innerHTML = filtrados.map(p => `
-        <div class="card" onclick="agregarProducto(${p.id})" style="cursor:pointer;">
-            <img src="${p.imagen}">
-            <h3>${p.nombre}</h3>
-        </div>
-    `).join("");
-});
 
 /* ======================
    AGREGAR PRODUCTO
@@ -80,10 +70,12 @@ function agregarProducto(id) {
 }
 
 /* ======================
-   MOSTRAR SELECCIONADOS
+   SELECCIONADOS
 ====================== */
 
 function renderSeleccionados() {
+
+    if (!seleccionados) return;
 
     seleccionados.innerHTML = window.seleccionados.map(p => `
         <div class="card">
