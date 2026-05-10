@@ -19,16 +19,15 @@ document.getElementById("paso2").classList.remove("oculto");
 }
 
 /* ======================
-   TOGGLE PANEL
+   TOGGLE BUSCADOR (opcional)
 ====================== */
 
-function toggleEntregas(){
-document.getElementById("entregasPanel").classList.toggle("oculto");
-render();
+function toggleSearch(){
+document.getElementById("searchBox").classList.toggle("active");
 }
 
 /* ======================
-   BUSCADOR (ARREGLADO)
+   BUSCADOR
 ====================== */
 
 document.addEventListener("input",(e)=>{
@@ -37,18 +36,14 @@ if(e.target.id !== "buscador") return;
 
 let texto = e.target.value.toLowerCase();
 
-let sugerencias = document.getElementById("sugerencias");
-
-if(!texto){
-sugerencias.innerHTML="";
-return;
-}
+if(!texto) return;
 
 let filtrados = productos.filter(p =>
 p.nombre.toLowerCase().includes(texto)
 );
 
-sugerencias.innerHTML = filtrados.map(p=>`
+document.getElementById("sugerencias").innerHTML =
+filtrados.map(p=>`
 <div onclick="agregar('${p.nombre}')">
 ${p.nombre}
 </div>
@@ -57,17 +52,21 @@ ${p.nombre}
 });
 
 /* ======================
-   AGREGAR
+   AGREGAR PRODUCTO
 ====================== */
 
 function agregar(nombre){
 
 let cantidad = prompt("Cantidad:");
 
+if(!cantidad) return;
+
 seleccionados.push({nombre, cantidad});
 
 renderSeleccionados();
 
+/* mostrar botón aceptar */
+document.getElementById("btnAceptar").classList.remove("oculto");
 }
 
 /* ======================
@@ -81,10 +80,15 @@ seleccionados.map(p=>`
 <p>${p.nombre} x${p.cantidad}</p>
 `).join("");
 
+
+if(seleccionados.length === 0){
+document.getElementById("btnAceptar").classList.add("oculto");
+}
+
 }
 
 /* ======================
-   GUARDAR
+   GUARDAR PEDIDO
 ====================== */
 
 function guardarPedido(){
@@ -104,15 +108,21 @@ datos.push(pedido);
 
 localStorage.setItem("entregas", JSON.stringify(datos));
 
-alert("Pedido creado");
+alert("Pedido creado correctamente");
 
 location.reload();
-
 }
 
 /* ======================
-   MOSTRAR ENTREGAS
+   PANEL ENTREGAS
 ====================== */
+
+function toggleEntregas(){
+
+document.getElementById("entregasPanel").classList.toggle("oculto");
+
+render();
+}
 
 function render(){
 
@@ -128,7 +138,6 @@ panel.innerHTML += `
 <div class="pedido-guardado">
 
 <h3>${p.cliente}</h3>
-
 <p>${p.direccionEntrega}</p>
 
 <button onclick="entregado(${i})">
@@ -143,7 +152,7 @@ panel.innerHTML += `
 }
 
 /* ======================
-   ENTREGADO
+   ENTREGADO → RECOGIDAS
 ====================== */
 
 function entregado(i){
@@ -161,5 +170,3 @@ localStorage.setItem("recogidas", JSON.stringify(recogidas));
 render();
 
 }
-
-render();
