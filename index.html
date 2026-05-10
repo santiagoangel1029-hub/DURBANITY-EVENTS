@@ -1,63 +1,107 @@
-<!-- HEADER -->
+<!DOCTYPE html>
+<html lang="es">
 
-<header class="header">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durbanity Events</title>
 
-    <h2>Nuestro catálogo</h2>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <!-- 🟣 PRODUCTOS -->
+<body>
 
-    <div class="menu-productos">
+    <!-- HERO -->
+    <section class="hero">
 
-        <button class="btn-main" onclick="toggleMenu()">
-            Productos ▾
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+
+            <img src="imagenes/logo.png" class="logo">
+
+            <h1>Elegancia para tus eventos</h1>
+
+            <p>Mantelería, menaje y decoración premium</p>
+
+            <button onclick="scrollCatalogo()">
+                Ver catálogo
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <h2>Nuestro catálogo</h2>
+
+        <!-- PRODUCTOS -->
+        <div class="menu-productos">
+
+            <button class="btn-main" onclick="toggleMenu()">
+                Productos ▾
+            </button>
+
+            <div class="dropdown" id="dropdownMenu">
+
+                <button onclick="filtrar('manteleria-estampada')">Mantelería estampada</button>
+                <button onclick="filtrar('manteleria-lisa')">Mantelería lisa</button>
+                <button onclick="filtrar('servilletas')">Servilletas</button>
+                <button onclick="filtrar('menaje')">Menaje</button>
+                <button onclick="filtrar('mobiliario')">Mobiliario</button>
+
+            </div>
+
+        </div>
+
+        <!-- PEDIDOS -->
+        <div class="menu-productos">
+
+            <button class="btn-main" onclick="togglePedidos()">
+                Pedidos ▾
+            </button>
+
+            <div class="dropdown" id="dropdownPedidos">
+
+                <button onclick="location.href='entregas.html'">
+                    🚚 Entregas
+                </button>
+
+                <button onclick="location.href='recogidas.html'">
+                    🏪 Recogidas
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- BUSCADOR -->
+    <div class="search-wrapper">
+
+        <button class="search-toggle" onclick="toggleSearch()">
+            🔍
         </button>
 
-        <div class="dropdown" id="dropdownMenu">
+        <div class="search-box" id="searchBox">
 
-            <button onclick="filtrar('manteleria-estampada')">
-                Mantelería estampada
-            </button>
+            <input type="text" id="buscador" placeholder="Buscar productos..." autocomplete="off">
 
-            <button onclick="filtrar('manteleria-lisa')">
-                Mantelería lisa
-            </button>
-
-            <button onclick="filtrar('servilletas')">
-                Servilletas
-            </button>
-
-            <button onclick="filtrar('menaje')">
-                Menaje
-            </button>
-
-            <button onclick="filtrar('mobiliario')">
-                Mobiliario
-            </button>
+            <div id="sugerencias" class="sugerencias"></div>
 
         </div>
 
     </div>
 
-    <!-- 🟢 PEDIDOS -->
+    <!-- CATÁLOGO -->
+    <div id="contenedor" class="grid"></div>
 
-    <div class="menu-productos">
+    <!-- JS -->
+    <script src="app.js"></script>
 
-        <button class="btn-main" onclick="togglePedidos()">
-            Pedidos ▾
-        </button>
+</body>
 
-        <div class="dropdown" id="dropdownPedidos">
-
-            <button onclick="location.href='entregas.html'">
-                🚚 Entregas
-            </button>
-
-            <button onclick="location.href='recogidas.html'">
-                🏪 Recogidas
-            </button>
-
-        </div>
-
-    </div>
-
-</header>
+</html>
