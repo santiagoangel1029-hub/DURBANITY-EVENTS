@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Entregas</title>
+
 <link rel="stylesheet" href="style.css">
 
 <style>
-.oculto { display: none; }
+.oculto { display:none; }
 
 .panel{
     background:white;
@@ -17,17 +17,21 @@
     margin-top:15px;
 }
 
-.card img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
-    border-radius:12px;
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px;
+    border-bottom:1px solid #eee;
+}
+
+.qty{
+    width:60px;
 }
 </style>
-
 </head>
 
-<body class="pedidos-body">
+<body>
 
 <div class="pedido-container">
 
@@ -42,21 +46,23 @@
 
     <button class="search-toggle" onclick="toggleSearch()">🔍</button>
 
-    <div class="search-box active" id="searchBox">
+    <div class="search-box" id="searchBox">
 
         <input id="buscador" placeholder="Buscar productos..." autocomplete="off">
 
-    </div>
+        <div id="sugerencias" class="sugerencias"></div>
 
+    </div>
 </div>
 
-<!-- CATÁLOGO DE PRODUCTOS -->
-<div id="catalogoBusqueda" class="grid"></div>
+<!-- PRODUCTO SELECCIONADO -->
+<div id="seleccionActual" class="panel oculto"></div>
 
-<!-- SELECCIONADOS -->
+<!-- LISTA DE PEDIDO -->
+<h3>Pedido actual</h3>
 <div id="seleccionados"></div>
 
-<button id="btnAceptar" onclick="irPaso2()" class="btn-main oculto">
+<button id="btnAceptar" class="btn-main oculto" onclick="irPaso2()">
 Aceptar
 </button>
 
@@ -73,14 +79,14 @@ Aceptar
 <input id="fechaEntrega" type="datetime-local">
 <input id="fechaRecogida" type="datetime-local">
 
-<button onclick="guardarPedido()" class="btn-main">
+<button class="btn-main" onclick="guardarPedido()">
 Realizar pedido
 </button>
 
 </div>
 
 <!-- ENTREGAS -->
-<button onclick="toggleEntregas()" class="btn-main" style="margin-top:20px;">
+<button class="btn-main" onclick="toggleEntregas()" style="margin-top:20px;">
 Entregas pendientes
 </button>
 
@@ -91,5 +97,4 @@ Entregas pendientes
 <script src="entregas.js"></script>
 
 </body>
-
 </html>
