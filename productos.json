@@ -1,150 +1,180 @@
 [
   {
+    "id": 1,
     "nombre": "Mantel Vichy Negro",
     "imagen": "imagenes/mantel-vichy-negro.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 2,
     "nombre": "Martina",
     "imagen": "imagenes/martina.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 3,
     "nombre": "Tramontana",
     "imagen": "imagenes/tramontana.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 4,
     "nombre": "Provenza",
     "imagen": "imagenes/provenza.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 5,
     "nombre": "Gante",
     "imagen": "imagenes/gante.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 6,
     "nombre": "Bristol",
     "imagen": "imagenes/bristol.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 7,
     "nombre": "Flores Jade Piedra",
     "imagen": "imagenes/flores-jade-piedra.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 8,
     "nombre": "Bombay",
     "imagen": "imagenes/bombay.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 9,
     "nombre": "Luxor",
     "imagen": "imagenes/luxor.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 10,
     "nombre": "Bosco",
     "imagen": "imagenes/bosco.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 11,
     "nombre": "Rayas Jade- Verde Líquen",
     "imagen": "imagenes/rayas-jade-verde-liquen.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 12,
     "nombre": "Rayas Albero",
     "imagen": "imagenes/rayas-albero.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 13,
     "nombre": "Rayas Negro",
     "imagen": "imagenes/rayas-negro.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 14,
     "nombre": "Cadenas Azul Cobalto",
     "imagen": "imagenes/cadenas-azul-cobalto.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 15,
     "nombre": "Cadenas Púrpura",
     "imagen": "imagenes/cadenas-purpura.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 16,
     "nombre": "Cadenas Verde",
     "imagen": "imagenes/cadenas-verde.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 17,
     "nombre": "Cadenas Cairo",
     "imagen": "imagenes/cadenas-cairo.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 18,
     "nombre": "Orleans",
     "imagen": "imagenes/orleans.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 19,
     "nombre": "Sicilia- Rayas Blanco Amarillo",
     "imagen": "imagenes/sicilia-rayas-blanco-amarillo.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 20,
     "nombre": "Sicilia- Rayas Blanco Azul",
     "imagen": "imagenes/sicilia-rayas-blanco-azul.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 21,
     "nombre": "Geométrico Fucsia",
     "imagen": "imagenes/geometrico-fucsia.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 22,
     "nombre": "Barbados",
     "imagen": "imagenes/barbados.jpg",
     "categoria": "manteleria-estampada"
   },
-   {
+  {
+    "id": 23,
     "nombre": "Grenoble Gris",
     "imagen": "imagenes/grenoble-gris.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 24,
     "nombre": "Grenoble Cereza",
     "imagen": "imagenes/grenoble-cereza.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 25,
     "nombre": "Mantel Vichy Beige",
     "imagen": "imagenes/mantel-vichy-beige.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 26,
     "nombre": "Mantel Vichy Rojo",
     "imagen": "imagenes/mantel-vichy-rojo.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 27,
     "nombre": "Mantel Vichy Verde Manzana",
     "imagen": "imagenes/mantel-vichy-verde-manzana.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 28,
     "nombre": "Mantel Vichy Rosa Empolvado",
     "imagen": "imagenes/mantel-vichy-rosa-empolvado.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 29,
     "nombre": "Helechos Verdes",
     "imagen": "imagenes/helechos-verdes.jpg",
     "categoria": "manteleria-estampada"
   },
   {
+    "id": 30,
     "nombre": "Mantel Vichy Azul",
     "imagen": "imagenes/mantel-vichy-azul.jpg",
     "categoria": "manteleria-estampada"
