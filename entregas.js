@@ -12,31 +12,37 @@ const sugerencias = document.getElementById("sugerencias");
 ====================== */
 
 fetch("./productos.json")
-.then(r => r.json())
+.then(res => res.json())
 .then(data => {
     productos = data;
+    console.log("✔ productos cargados:", productos.length);
 });
 
 /* ======================
-   BUSCADOR (SOLO SUGERENCIAS)
+   BUSCADOR FUNCIONAL
 ====================== */
 
 buscador.addEventListener("input", (e) => {
 
     const texto = e.target.value.toLowerCase().trim();
-    sugerencias.innerHTML = "";
 
-    if (!texto) return;
+    if (!texto) {
+        sugerencias.style.display = "none";
+        sugerencias.innerHTML = "";
+        return;
+    }
 
     const filtrados = productos.filter(p =>
         p.nombre.toLowerCase().includes(texto)
     );
 
     sugerencias.innerHTML = filtrados.slice(0, 8).map(p => `
-        <div onclick="seleccionarProducto(${p.id})" class="sugerencia-item">
+        <div class="sugerencia-item" onclick="seleccionarProducto(${p.id})">
             ${p.nombre}
         </div>
     `).join("");
+
+    sugerencias.style.display = "block";
 });
 
 });
@@ -56,23 +62,23 @@ function seleccionarProducto(id) {
     box.innerHTML = `
         <h4>${productoSeleccionado.nombre}</h4>
 
-        <input type="number" id="cantidad" min="1" value="1" class="qty">
+        <input type="number" id="cantidad" value="1" min="1" class="qty">
 
-        <button onclick="agregarPedido()" class="btn-main">
+        <button class="btn-main" onclick="agregarPedido()">
             Añadir
         </button>
     `;
+
+    document.getElementById("sugerencias").style.display = "none";
 }
 
 /* ======================
-   AGREGAR A PEDIDO
+   AGREGAR AL PEDIDO
 ====================== */
 
 function agregarPedido() {
 
     const cantidad = document.getElementById("cantidad").value;
-
-    if (!productoSeleccionado) return;
 
     pedido.push({
         ...productoSeleccionado,
@@ -87,7 +93,7 @@ function agregarPedido() {
 }
 
 /* ======================
-   RENDER PEDIDO
+   RENDER
 ====================== */
 
 function renderPedido() {
@@ -96,11 +102,11 @@ function renderPedido() {
 
     cont.innerHTML = "";
 
-    pedido.forEach((p, i) => {
+    pedido.forEach((p,i) => {
 
         cont.innerHTML += `
-            <div class="item">
-                <span>${p.nombre} x ${p.cantidad}</span>
+            <div class="panel">
+                ${p.nombre} x ${p.cantidad}
                 <button onclick="eliminarItem(${i})">❌</button>
             </div>
         `;
@@ -108,14 +114,14 @@ function renderPedido() {
 }
 
 /* ======================
-   ELIMINAR ITEM
+   ELIMINAR
 ====================== */
 
-function eliminarItem(i) {
+function eliminarItem(i){
     pedido.splice(i,1);
     renderPedido();
 
-    if (pedido.length === 0) {
+    if(pedido.length === 0){
         document.getElementById("btnAceptar").classList.add("oculto");
     }
 }
@@ -124,8 +130,7 @@ function eliminarItem(i) {
    PASO 2
 ====================== */
 
-function irPaso2() {
-
+function irPaso2(){
     document.getElementById("paso1").classList.add("oculto");
     document.getElementById("paso2").classList.remove("oculto");
 }
@@ -134,18 +139,16 @@ function irPaso2() {
    GUARDAR PEDIDO
 ====================== */
 
-function guardarPedido() {
+function guardarPedido(){
 
     const cliente = document.getElementById("cliente").value;
 
-    const pedidoFinal = {
-        cliente,
-        productos: pedido
-    };
-
     let data = JSON.parse(localStorage.getItem("entregas") || "[]");
 
-    data.push(pedidoFinal);
+    data.push({
+        cliente,
+        productos: pedido
+    });
 
     localStorage.setItem("entregas", JSON.stringify(data));
 
@@ -155,10 +158,10 @@ function guardarPedido() {
 }
 
 /* ======================
-   TOGGLE ENTREGAS
+   MOSTRAR ENTREGAS
 ====================== */
 
-function toggleEntregas() {
+function toggleEntregas(){
 
     const panel = document.getElementById("entregasPanel");
 
@@ -168,18 +171,16 @@ function toggleEntregas() {
 
     panel.innerHTML = data.map(p => `
         <div class="panel">
-            <b>${p.cliente}</b>
-            <br>
+            <b>${p.cliente}</b><br>
             ${p.productos.map(x => `• ${x.nombre} x ${x.cantidad}`).join("<br>")}
         </div>
     `).join("");
 }
 
 /* ======================
-   SEARCH UI
+   BUSCADOR UI
 ====================== */
 
-function toggleSearch() {
-
+function toggleSearch(){
     document.getElementById("searchBox").classList.toggle("active");
 }
