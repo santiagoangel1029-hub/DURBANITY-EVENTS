@@ -1,6 +1,10 @@
 let productos = [];
 let seleccionados = [];
 
+/* ======================
+   CARGA PRODUCTOS
+====================== */
+
 fetch("productos.json")
 .then(r => r.json())
 .then(data => productos = data);
@@ -14,29 +18,37 @@ document.getElementById("paso1").classList.add("oculto");
 document.getElementById("paso2").classList.remove("oculto");
 }
 
-function irPaso3(){
-document.getElementById("paso2").classList.add("oculto");
-document.getElementById("paso3").classList.remove("oculto");
+/* ======================
+   TOGGLE PANEL
+====================== */
+
+function toggleEntregas(){
+document.getElementById("entregasPanel").classList.toggle("oculto");
+render();
 }
 
 /* ======================
-   BUSCADOR
+   BUSCADOR (ARREGLADO)
 ====================== */
 
-document.addEventListener("input", (e)=>{
+document.addEventListener("input",(e)=>{
 
 if(e.target.id !== "buscador") return;
 
 let texto = e.target.value.toLowerCase();
 
-if(!texto) return;
+let sugerencias = document.getElementById("sugerencias");
+
+if(!texto){
+sugerencias.innerHTML="";
+return;
+}
 
 let filtrados = productos.filter(p =>
 p.nombre.toLowerCase().includes(texto)
 );
 
-document.getElementById("sugerencias").innerHTML =
-filtrados.map(p=>`
+sugerencias.innerHTML = filtrados.map(p=>`
 <div onclick="agregar('${p.nombre}')">
 ${p.nombre}
 </div>
@@ -54,7 +66,21 @@ let cantidad = prompt("Cantidad:");
 
 seleccionados.push({nombre, cantidad});
 
-alert("Añadido: " + nombre);
+renderSeleccionados();
+
+}
+
+/* ======================
+   MOSTRAR SELECCIONADOS
+====================== */
+
+function renderSeleccionados(){
+
+document.getElementById("seleccionados").innerHTML =
+seleccionados.map(p=>`
+<p>${p.nombre} x${p.cantidad}</p>
+`).join("");
+
 }
 
 /* ======================
@@ -85,20 +111,20 @@ location.reload();
 }
 
 /* ======================
-   MOSTRAR
+   MOSTRAR ENTREGAS
 ====================== */
 
 function render(){
 
 let datos = JSON.parse(localStorage.getItem("entregas")) || [];
 
-let lista = document.getElementById("lista");
+let panel = document.getElementById("entregasPanel");
 
-lista.innerHTML = "";
+panel.innerHTML = "";
 
 datos.forEach((p,i)=>{
 
-lista.innerHTML += `
+panel.innerHTML += `
 <div class="pedido-guardado">
 
 <h3>${p.cliente}</h3>
@@ -117,7 +143,7 @@ lista.innerHTML += `
 }
 
 /* ======================
-   ENTREGADO → RECOGIDAS
+   ENTREGADO
 ====================== */
 
 function entregado(i){
