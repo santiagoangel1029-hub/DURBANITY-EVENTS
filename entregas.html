@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,18 +18,34 @@
     margin-top:15px;
 }
 
-.item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px;
-    border-bottom:1px solid #eee;
+.sugerencias{
+    position:absolute;
+    width:100%;
+    background:white;
+    top:65px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    z-index:999;
+    display:none;
+    max-height:250px;
+    overflow-y:auto;
+}
+
+.sugerencia-item{
+    padding:12px;
+    cursor:pointer;
+}
+
+.sugerencia-item:hover{
+    background:#f2f2f2;
 }
 
 .qty{
-    width:60px;
+    width:70px;
+    margin:10px 0;
 }
 </style>
+
 </head>
 
 <body>
@@ -58,7 +75,7 @@
 <!-- PRODUCTO SELECCIONADO -->
 <div id="seleccionActual" class="panel oculto"></div>
 
-<!-- LISTA DE PEDIDO -->
+<!-- LISTA -->
 <h3>Pedido actual</h3>
 <div id="seleccionados"></div>
 
