@@ -81,15 +81,29 @@
 
     <!-- BUSCADOR -->
 
-    <div class="buscador-container">
+<div class="search-wrapper">
+
+    <!-- ICONO LUPA -->
+    <button class="search-toggle" onclick="toggleSearch()">
+        🔍
+    </button>
+
+    <!-- BUSCADOR -->
+    <div class="search-box" id="searchBox">
 
         <input
             type="text"
             id="buscador"
             placeholder="Buscar productos..."
+            autocomplete="off"
         >
 
+        <!-- SUGERENCIAS -->
+        <div id="sugerencias" class="sugerencias"></div>
+
     </div>
+
+</div>
 
     <!-- CATÁLOGO -->
 
