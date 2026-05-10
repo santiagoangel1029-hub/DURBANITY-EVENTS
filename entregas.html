@@ -8,12 +8,13 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-.oculto{display:none;}
+.oculto { display: none; }
+
 .panel{
     background:white;
     padding:15px;
     border-radius:15px;
-    margin-top:10px;
+    margin-top:15px;
 }
 </style>
 
@@ -25,7 +26,7 @@
 
 <h1>🚚 Entregas</h1>
 
-<!-- PASO 1 -->
+<!-- ================= PASO 1 ================= -->
 <div id="paso1">
 
 <h2>1. Seleccionar productos</h2>
@@ -46,13 +47,13 @@
 
 <div id="seleccionados"></div>
 
-<button onclick="irPaso2()" class="btn-main">
+<button id="btnAceptar" onclick="irPaso2()" class="btn-main oculto">
 Aceptar
 </button>
 
 </div>
 
-<!-- PASO 2 -->
+<!-- ================= PASO 2 ================= -->
 <div id="paso2" class="oculto">
 
 <h2>2. Datos del cliente</h2>
@@ -69,8 +70,8 @@ Realizar pedido
 
 </div>
 
-<!-- BOTÓN ENTREGAS PENDIENTES -->
-<button onclick="toggleEntregas()" class="btn-main">
+<!-- ================= ENTREGAS ================= -->
+<button onclick="toggleEntregas()" class="btn-main" style="margin-top:20px;">
 Entregas pendientes
 </button>
 
