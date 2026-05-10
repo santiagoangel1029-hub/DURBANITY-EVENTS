@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Entregas</title>
+    <title>Entregas Pendientes</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -16,48 +16,44 @@
 
 <body class="pedidos-body">
 
-    <div class="pedido-container">
+<div class="pedido-container">
 
-        <h1>🚚 Pedidos de Entregas</h1>
+    <h1>🚚 Entregas pendientes</h1>
 
-        <!-- CLIENTE -->
+    <!-- CLIENTE -->
 
-        <div class="cliente-box">
+    <div class="cliente-box">
 
-            <input
-                type="text"
-                id="cliente"
-                placeholder="Nombre del cliente"
-            >
-
-        </div>
-
-        <!-- CATÁLOGO -->
-
-        <div id="catalogoPedidos"
-             class="grid-pedidos">
-
-        </div>
-
-        <!-- BOTÓN GUARDAR -->
-
-        <div class="guardar-box">
-
-            <button onclick="guardarPedido()">
-                💾 Guardar pedido
-            </button>
-
-        </div>
-
-        <!-- PEDIDOS GUARDADOS -->
-
-        <h2 class="titulo-guardados">
-            Pedidos guardados
-        </h2>
-
-        <div id="pedidosGuardados"></div>
+        <input
+            type="text"
+            id="cliente"
+            placeholder="Nombre del cliente"
+        >
 
     </div>
+
+    <!-- CATÁLOGO -->
+
+    <div id="catalogoPedidos"
+         class="grid-pedidos">
+
+    </div>
+
+    <!-- BOTÓN -->
+
+    <div class="guardar-box">
+
+        <button onclick="guardarPedido()">
+            💾 Guardar pedido
+        </button>
+
+    </div>
+
+    <!-- LISTA -->
+
+    <div id="entregasPendientes"></div>
+
+</div>
 
 <script>
 
@@ -70,14 +66,14 @@ let pedidoActual = [];
 ====================== */
 
 fetch("productos.json")
-    .then(res => res.json())
-    .then(data => {
+.then(res => res.json())
+.then(data => {
 
-        productos = data;
+    productos = data;
 
-        renderCatalogo();
+    renderCatalogo();
 
-    });
+});
 
 /* ======================
    CATÁLOGO
@@ -86,7 +82,9 @@ fetch("productos.json")
 function renderCatalogo() {
 
     const catalogo =
-        document.getElementById("catalogoPedidos");
+        document.getElementById(
+            "catalogoPedidos"
+        );
 
     catalogo.innerHTML = "";
 
@@ -126,13 +124,12 @@ function renderCatalogo() {
 
 function agregarProducto(nombre) {
 
-    const input =
-        document.getElementById(
-            `cantidad-${nombre}`
-        );
-
     const cantidad =
-        parseInt(input.value) || 1;
+        parseInt(
+            document.getElementById(
+                `cantidad-${nombre}`
+            ).value
+        ) || 1;
 
     pedidoActual.push({
 
@@ -155,7 +152,7 @@ function guardarPedido() {
 
     if (!cliente) {
 
-        alert("Escribe nombre cliente");
+        alert("Escribe cliente");
 
         return;
     }
@@ -167,14 +164,14 @@ function guardarPedido() {
         return;
     }
 
-    const pedidos =
+    const entregas =
         JSON.parse(
             localStorage.getItem(
-                "pedidos-entregas"
+                "entregas-pendientes"
             )
         ) || [];
 
-    pedidos.push({
+    entregas.push({
 
         cliente,
         productos: pedidoActual
@@ -182,40 +179,40 @@ function guardarPedido() {
     });
 
     localStorage.setItem(
-        "pedidos-entregas",
-        JSON.stringify(pedidos)
+        "entregas-pendientes",
+        JSON.stringify(entregas)
     );
 
     pedidoActual = [];
 
     document.getElementById("cliente").value = "";
 
-    mostrarPedidos();
+    mostrarEntregas();
 
     alert("Pedido guardado");
 }
 
 /* ======================
-   MOSTRAR PEDIDOS
+   MOSTRAR ENTREGAS
 ====================== */
 
-function mostrarPedidos() {
+function mostrarEntregas() {
 
     const contenedor =
         document.getElementById(
-            "pedidosGuardados"
+            "entregasPendientes"
         );
 
-    const pedidos =
+    const entregas =
         JSON.parse(
             localStorage.getItem(
-                "pedidos-entregas"
+                "entregas-pendientes"
             )
         ) || [];
 
     contenedor.innerHTML = "";
 
-    pedidos.forEach((pedido, index) => {
+    entregas.forEach((pedido, index) => {
 
         contenedor.innerHTML += `
 
@@ -228,10 +225,10 @@ function mostrarPedidos() {
                     </h3>
 
                     <button
-                        class="btn-delete"
-                        onclick="eliminarPedido(${index})">
+                        class="btn-ready"
+                        onclick="marcarEntregado(${index})">
 
-                        ✖
+                        ✅ Entregado
 
                     </button>
 
@@ -253,29 +250,43 @@ function mostrarPedidos() {
 }
 
 /* ======================
-   ELIMINAR
+   ENTREGADO
 ====================== */
 
-function eliminarPedido(index) {
+function marcarEntregado(index) {
 
-    const pedidos =
+    const entregas =
         JSON.parse(
             localStorage.getItem(
-                "pedidos-entregas"
+                "entregas-pendientes"
             )
         ) || [];
 
-    pedidos.splice(index, 1);
+    const recogidas =
+        JSON.parse(
+            localStorage.getItem(
+                "recogidas-pendientes"
+            )
+        ) || [];
+
+    recogidas.push(entregas[index]);
+
+    entregas.splice(index, 1);
 
     localStorage.setItem(
-        "pedidos-entregas",
-        JSON.stringify(pedidos)
+        "entregas-pendientes",
+        JSON.stringify(entregas)
     );
 
-    mostrarPedidos();
+    localStorage.setItem(
+        "recogidas-pendientes",
+        JSON.stringify(recogidas)
+    );
+
+    mostrarEntregas();
 }
 
-mostrarPedidos();
+mostrarEntregas();
 
 </script>
 
