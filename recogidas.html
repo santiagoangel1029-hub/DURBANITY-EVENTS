@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Recogidas</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="pedidos-body">
+
+    <div class="pedido-container">
+
+        <h1>🏪 Hoja de Recogidas</h1>
+
+        <div id="listaPedidos"></div>
+
+        <div class="pedido-botones">
+
+            <button onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+
+            <button onclick="vaciarPedido()">
+                🗑️ Vaciar hoja
+            </button>
+
+        </div>
+
+    </div>
+
+<script>
+
+const lista =
+    document.getElementById("listaPedidos");
+
+let pedidos =
+    JSON.parse(localStorage.getItem("pedido")) || [];
+
+function renderPedidos() {
+
+    lista.innerHTML = "";
+
+    if (pedidos.length === 0) {
+
+        lista.innerHTML = `
+            <p class="pedido-vacio">
+                No hay artículos añadidos
+            </p>
+        `;
+
+        return;
+    }
+
+    pedidos.forEach((p, index) => {
+
+        lista.innerHTML += `
+
+            <div class="pedido-card">
+
+                <div>
+
+                    <h3>${p.nombre}</h3>
+
+                    <p>
+                        Cantidad: ${p.cantidad}
+                    </p>
+
+                </div>
+
+                <button
+                    class="btn-eliminar"
+                    onclick="eliminarPedido(${index})">
+
+                    ✖
+
+                </button>
+
+            </div>
+
+        `;
+    });
+}
+
+function eliminarPedido(index) {
+
+    pedidos.splice(index, 1);
+
+    localStorage.setItem(
+        "pedido",
+        JSON.stringify(pedidos)
+    );
+
+    renderPedidos();
+}
+
+function vaciarPedido() {
+
+    localStorage.removeItem("pedido");
+
+    pedidos = [];
+
+    renderPedidos();
+}
+
+renderPedidos();
+
+</script>
+
+</body>
+
+</html>
