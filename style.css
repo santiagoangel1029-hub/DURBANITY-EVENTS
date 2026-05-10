@@ -452,7 +452,178 @@ body {
 
     cursor: pointer;
 }
+.pedido-actions {
 
+    display: flex;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    justify-content: center;
+}
+
+.cantidad-input {
+
+    width: 70px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ddd;
+
+    text-align: center;
+}
+
+.btn-add {
+
+    border: none;
+
+    background: linear-gradient(
+        90deg,
+        var(--turquesa),
+        var(--morado)
+    );
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+/* ======================
+   HOJAS PEDIDOS
+====================== */
+
+.pedidos-body {
+
+    background: #f5f5f5;
+
+    font-family: Arial, sans-serif;
+
+    padding: 30px;
+}
+
+.pedido-container {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.pedido-container h1 {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.pedido-card {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    margin-bottom: 15px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+}
+
+.btn-eliminar {
+
+    border: none;
+
+    background: crimson;
+
+    color: white;
+
+    width: 35px;
+
+    height: 35px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.pedido-botones {
+
+    display: flex;
+
+    gap: 15px;
+
+    justify-content: center;
+
+    margin-top: 30px;
+}
+
+.pedido-botones button {
+
+    border: none;
+
+    padding: 14px 20px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        90deg,
+        var(--turquesa),
+        var(--morado)
+    );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.formulario-entrega {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    display: grid;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+}
+
+.formulario-entrega input {
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ddd;
+}
+
+.pedido-vacio {
+
+    text-align: center;
+
+    opacity: 0.6;
+}
 #dropdownPedidos button:hover {
 
     background: #f4f4f4;
