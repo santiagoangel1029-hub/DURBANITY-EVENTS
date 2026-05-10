@@ -7,10 +7,12 @@ let seleccionados = [];
 
 fetch("productos.json")
 .then(r => r.json())
-.then(data => productos = data);
+.then(data => {
+    productos = data || [];
+});
 
 /* ======================
-   PASOS
+   PASO 1 → PASO 2
 ====================== */
 
 function irPaso2(){
@@ -19,15 +21,7 @@ document.getElementById("paso2").classList.remove("oculto");
 }
 
 /* ======================
-   TOGGLE BUSCADOR (opcional)
-====================== */
-
-function toggleSearch(){
-document.getElementById("searchBox").classList.toggle("active");
-}
-
-/* ======================
-   BUSCADOR
+   BUSCADOR (ARREGLADO CON ID)
 ====================== */
 
 document.addEventListener("input",(e)=>{
@@ -36,7 +30,10 @@ if(e.target.id !== "buscador") return;
 
 let texto = e.target.value.toLowerCase();
 
-if(!texto) return;
+if(!texto){
+document.getElementById("sugerencias").innerHTML = "";
+return;
+}
 
 let filtrados = productos.filter(p =>
 p.nombre.toLowerCase().includes(texto)
@@ -44,7 +41,7 @@ p.nombre.toLowerCase().includes(texto)
 
 document.getElementById("sugerencias").innerHTML =
 filtrados.map(p=>`
-<div onclick="agregar('${p.nombre}')">
+<div onclick="agregar(${p.id})">
 ${p.nombre}
 </div>
 `).join("");
@@ -52,16 +49,26 @@ ${p.nombre}
 });
 
 /* ======================
-   AGREGAR PRODUCTO
+   AGREGAR PRODUCTO (CON ID REAL)
 ====================== */
 
-function agregar(nombre){
+function agregar(id){
+
+let producto = productos.find(p => p.id === id);
+
+if(!producto) return;
 
 let cantidad = prompt("Cantidad:");
 
 if(!cantidad) return;
 
-seleccionados.push({nombre, cantidad});
+seleccionados.push({
+id: producto.id,
+nombre: producto.nombre,
+imagen: producto.imagen,
+categoria: producto.categoria,
+cantidad: cantidad
+});
 
 renderSeleccionados();
 
@@ -108,7 +115,7 @@ datos.push(pedido);
 
 localStorage.setItem("entregas", JSON.stringify(datos));
 
-alert("Pedido creado correctamente");
+alert("Pedido guardado correctamente");
 
 location.reload();
 }
