@@ -66,7 +66,7 @@
   },
   {
     "nombre": "Cadenas Azul Cobalto",
-    "imagen": "imagenes/cadenas.azul-cobalto.jpg",
+    "imagen": "imagenes/cadenas-azul-cobalto.jpg",
     "categoria": "manteleria-estampada"
   },
   {
@@ -90,12 +90,12 @@
     "categoria": "manteleria-estampada"
   },
   {
-    "nombre": "Sicilia-Rayas Blanco Amarillo",
+    "nombre": "Sicilia- Rayas Blanco Amarillo",
     "imagen": "imagenes/sicilia-rayas-blanco-amarillo.jpg",
     "categoria": "manteleria-estampada"
   },
   {
-    "nombre": "Sicilia-Rayas Blanco Azul",
+    "nombre": "Sicilia- Rayas Blanco Azul",
     "imagen": "imagenes/sicilia-rayas-blanco-azul.jpg",
     "categoria": "manteleria-estampada"
   },
