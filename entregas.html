@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Entregas</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h1>Hoja de Entregas</h1>
+
+<div id="listaPedidos"></div>
+
+<script>
+
+const lista = document.getElementById("listaPedidos");
+
+const pedidos = JSON.parse(localStorage.getItem("pedido")) || [];
+
+pedidos.forEach(p => {
+
+    lista.innerHTML += `
+        <div class="card">
+            <h3>${p.nombre}</h3>
+            <p>Cantidad: ${p.cantidad}</p>
+        </div>
+    `;
+});
+
+</script>
+
+</body>
+
+</html>
