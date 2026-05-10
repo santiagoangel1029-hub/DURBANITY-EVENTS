@@ -9,6 +9,7 @@ fetch("./productos.json")
 .then(res => res.json())
 .then(data => {
     window.productos = data;
+    mostrarTodos();
 });
 
 /* ======================
@@ -16,9 +17,25 @@ fetch("./productos.json")
 ====================== */
 
 const buscador = document.getElementById("buscador");
-const sugerencias = document.getElementById("sugerencias");
+const catalogo = document.getElementById("catalogoBusqueda");
 const btnAceptar = document.getElementById("btnAceptar");
 const seleccionados = document.getElementById("seleccionados");
+
+/* ======================
+   MOSTRAR TODOS
+====================== */
+
+function mostrarTodos() {
+
+    if (!catalogo) return;
+
+    catalogo.innerHTML = window.productos.map(p => `
+        <div class="card" onclick="agregarProducto(${p.id})" style="cursor:pointer;">
+            <img src="${p.imagen}">
+            <h3>${p.nombre}</h3>
+        </div>
+    `).join("");
+}
 
 /* ======================
    BUSCADOR
@@ -29,7 +46,7 @@ buscador.addEventListener("input", (e) => {
     const texto = e.target.value.toLowerCase().trim();
 
     if (!texto) {
-        sugerencias.innerHTML = "";
+        mostrarTodos();
         return;
     }
 
@@ -37,9 +54,10 @@ buscador.addEventListener("input", (e) => {
         p.nombre.toLowerCase().includes(texto)
     );
 
-    sugerencias.innerHTML = filtrados.slice(0, 8).map(p => `
-        <div class="sugerencia-item" onclick="agregarProducto(${p.id})">
-            ${p.nombre}
+    catalogo.innerHTML = filtrados.map(p => `
+        <div class="card" onclick="agregarProducto(${p.id})" style="cursor:pointer;">
+            <img src="${p.imagen}">
+            <h3>${p.nombre}</h3>
         </div>
     `).join("");
 });
@@ -69,13 +87,14 @@ function renderSeleccionados() {
 
     seleccionados.innerHTML = window.seleccionados.map(p => `
         <div class="card">
+            <img src="${p.imagen}">
             <h3>${p.nombre}</h3>
         </div>
     `).join("");
 }
 
 /* ======================
-   TOGGLE SEARCH (IMPORTANTE)
+   TOGGLE SEARCH
 ====================== */
 
 function toggleSearch() {
@@ -106,13 +125,13 @@ function guardarPedido() {
         productos: window.seleccionados
     };
 
-    let guardados = JSON.parse(localStorage.getItem("entregas")) || [];
+    let data = JSON.parse(localStorage.getItem("entregas")) || [];
 
-    guardados.push(pedido);
+    data.push(pedido);
 
-    localStorage.setItem("entregas", JSON.stringify(guardados));
+    localStorage.setItem("entregas", JSON.stringify(data));
 
-    alert("Pedido guardado correctamente");
+    alert("Pedido guardado");
 
     location.reload();
 }
@@ -125,9 +144,9 @@ function toggleEntregas() {
 
     const panel = document.getElementById("entregasPanel");
 
-    const datos = JSON.parse(localStorage.getItem("entregas")) || [];
+    const data = JSON.parse(localStorage.getItem("entregas")) || [];
 
-    panel.innerHTML = datos.map((p, i) => `
+    panel.innerHTML = data.map(p => `
         <div class="card">
             <h3>${p.cliente}</h3>
             <p>${p.entrega}</p>
