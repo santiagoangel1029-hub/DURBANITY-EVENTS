@@ -6,6 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Entregas</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+.oculto{ display:none; }
+</style>
+
 </head>
 
 <body class="pedidos-body">
@@ -25,7 +30,7 @@
 
     <div class="search-box active" id="searchBox">
 
-        <input id="buscador" placeholder="Buscar productos...">
+        <input id="buscador" placeholder="Buscar productos..." autocomplete="off">
 
         <div id="sugerencias" class="sugerencias"></div>
 
@@ -33,6 +38,7 @@
 
 </div>
 
+<!-- aquí se ven productos añadidos -->
 <div id="seleccionados"></div>
 
 <button onclick="irPaso2()" class="btn-main">
