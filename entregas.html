@@ -2,293 +2,85 @@
 <html lang="es">
 
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Entregas Pendientes</title>
-
-    <link rel="stylesheet" href="style.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entregas</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="pedidos-body">
 
 <div class="pedido-container">
 
-    <h1>🚚 Entregas pendientes</h1>
+<h1>🚚 Entregas</h1>
 
-    <!-- CLIENTE -->
+<!-- PASO 1 -->
+<div id="paso1">
 
-    <div class="cliente-box">
+<h2>1. Seleccionar productos</h2>
 
-        <input
-            type="text"
-            id="cliente"
-            placeholder="Nombre del cliente"
-        >
+<div class="search-wrapper">
 
-    </div>
+    <button class="search-toggle" onclick="toggleSearch()">🔍</button>
 
-    <!-- CATÁLOGO -->
+    <div class="search-box active" id="searchBox">
 
-    <div id="catalogoPedidos"
-         class="grid-pedidos">
+        <input id="buscador" placeholder="Buscar productos...">
+
+        <div id="sugerencias" class="sugerencias"></div>
 
     </div>
-
-    <!-- BOTÓN -->
-
-    <div class="guardar-box">
-
-        <button onclick="guardarPedido()">
-            💾 Guardar pedido
-        </button>
-
-    </div>
-
-    <!-- LISTA -->
-
-    <div id="entregasPendientes"></div>
 
 </div>
 
-<script>
+<div id="seleccionados"></div>
 
-let productos = [];
+<button onclick="irPaso2()" class="btn-main">
+Aceptar productos
+</button>
 
-let pedidoActual = [];
+</div>
 
-/* ======================
-   CARGAR PRODUCTOS
-====================== */
+<!-- PASO 2 -->
+<div id="paso2" class="oculto">
 
-fetch("productos.json")
-.then(res => res.json())
-.then(data => {
+<h2>2. Datos del cliente</h2>
 
-    productos = data;
+<input id="cliente" placeholder="Cliente">
+<input id="dirEntrega" placeholder="Dirección de entrega">
+<input id="dirRecogida" placeholder="Dirección de recogida">
 
-    renderCatalogo();
+<input id="fechaEntrega" type="datetime-local">
+<input id="fechaRecogida" type="datetime-local">
 
-});
+<button onclick="irPaso3()" class="btn-main">
+Continuar
+</button>
 
-/* ======================
-   CATÁLOGO
-====================== */
+</div>
 
-function renderCatalogo() {
+<!-- PASO 3 -->
+<div id="paso3" class="oculto">
 
-    const catalogo =
-        document.getElementById(
-            "catalogoPedidos"
-        );
+<h2>3. Confirmar pedido</h2>
 
-    catalogo.innerHTML = "";
+<p>Revisa la información antes de guardar</p>
 
-    productos.forEach(p => {
+<button onclick="guardarPedido()" class="btn-main">
+Realizar pedido
+</button>
 
-        catalogo.innerHTML += `
+</div>
 
-            <div class="pedido-producto">
+<hr>
 
-                <img src="${p.imagen}">
+<h2>Entregas pendientes</h2>
 
-                <h3>${p.nombre}</h3>
+<div id="lista"></div>
 
-                <input
-                    type="number"
-                    min="1"
-                    value="1"
-                    id="cantidad-${p.nombre}"
-                >
+</div>
 
-                <button
-                    onclick="agregarProducto('${p.nombre}')">
-
-                    Añadir
-
-                </button>
-
-            </div>
-
-        `;
-    });
-}
-
-/* ======================
-   AGREGAR PRODUCTO
-====================== */
-
-function agregarProducto(nombre) {
-
-    const cantidad =
-        parseInt(
-            document.getElementById(
-                `cantidad-${nombre}`
-            ).value
-        ) || 1;
-
-    pedidoActual.push({
-
-        nombre,
-        cantidad
-
-    });
-
-    alert(nombre + " añadido");
-}
-
-/* ======================
-   GUARDAR PEDIDO
-====================== */
-
-function guardarPedido() {
-
-    const cliente =
-        document.getElementById("cliente").value;
-
-    if (!cliente) {
-
-        alert("Escribe cliente");
-
-        return;
-    }
-
-    if (pedidoActual.length === 0) {
-
-        alert("No hay productos");
-
-        return;
-    }
-
-    const entregas =
-        JSON.parse(
-            localStorage.getItem(
-                "entregas-pendientes"
-            )
-        ) || [];
-
-    entregas.push({
-
-        cliente,
-        productos: pedidoActual
-
-    });
-
-    localStorage.setItem(
-        "entregas-pendientes",
-        JSON.stringify(entregas)
-    );
-
-    pedidoActual = [];
-
-    document.getElementById("cliente").value = "";
-
-    mostrarEntregas();
-
-    alert("Pedido guardado");
-}
-
-/* ======================
-   MOSTRAR ENTREGAS
-====================== */
-
-function mostrarEntregas() {
-
-    const contenedor =
-        document.getElementById(
-            "entregasPendientes"
-        );
-
-    const entregas =
-        JSON.parse(
-            localStorage.getItem(
-                "entregas-pendientes"
-            )
-        ) || [];
-
-    contenedor.innerHTML = "";
-
-    entregas.forEach((pedido, index) => {
-
-        contenedor.innerHTML += `
-
-            <div class="pedido-guardado">
-
-                <div class="pedido-top">
-
-                    <h3>
-                        📦 ${pedido.cliente}
-                    </h3>
-
-                    <button
-                        class="btn-ready"
-                        onclick="marcarEntregado(${index})">
-
-                        ✅ Entregado
-
-                    </button>
-
-                </div>
-
-                ${pedido.productos.map(p => `
-
-                    <p>
-                        ${p.nombre}
-                        x${p.cantidad}
-                    </p>
-
-                `).join("")}
-
-            </div>
-
-        `;
-    });
-}
-
-/* ======================
-   ENTREGADO
-====================== */
-
-function marcarEntregado(index) {
-
-    const entregas =
-        JSON.parse(
-            localStorage.getItem(
-                "entregas-pendientes"
-            )
-        ) || [];
-
-    const recogidas =
-        JSON.parse(
-            localStorage.getItem(
-                "recogidas-pendientes"
-            )
-        ) || [];
-
-    recogidas.push(entregas[index]);
-
-    entregas.splice(index, 1);
-
-    localStorage.setItem(
-        "entregas-pendientes",
-        JSON.stringify(entregas)
-    );
-
-    localStorage.setItem(
-        "recogidas-pendientes",
-        JSON.stringify(recogidas)
-    );
-
-    mostrarEntregas();
-}
-
-mostrarEntregas();
-
-</script>
+<script src="entregas.js"></script>
 
 </body>
 
