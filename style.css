@@ -409,3 +409,53 @@ body {
 
     color: var(--morado);
 }
+/* ======================
+   PEDIDOS DROPDOWN
+====================== */
+
+#dropdownPedidos {
+
+    display: none;
+
+    position: absolute;
+
+    top: 55px;
+
+    right: 0;
+
+    background: white;
+
+    min-width: 240px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+#dropdownPedidos.show {
+    display: block;
+}
+
+#dropdownPedidos button {
+
+    width: 100%;
+
+    border: none;
+
+    background: white;
+
+    padding: 15px;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+#dropdownPedidos button:hover {
+
+    background: #f4f4f4;
+
+    color: var(--morado);
+}
