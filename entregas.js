@@ -2,49 +2,60 @@ let productos = [];
 let pedido = [];
 let productoSeleccionado = null;
 
+/* ======================
+   INICIO
+====================== */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-const buscador = document.getElementById("buscador");
-const sugerencias = document.getElementById("sugerencias");
+    const buscador = document.getElementById("buscador");
+    const sugerencias = document.getElementById("sugerencias");
+    const btnAceptar = document.getElementById("btnAceptar");
 
-/* ======================
-   CARGAR PRODUCTOS
-====================== */
+    /* ======================
+       CARGA PRODUCTOS
+    ====================== */
 
-fetch("./productos.json")
-.then(res => res.json())
-.then(data => {
-    productos = data;
-    console.log("✔ productos cargados:", productos.length);
-});
+    fetch("./productos.json")
+        .then(res => res.json())
+        .then(data => {
+            productos = data || [];
+            console.log("✔ Productos cargados:", productos.length);
+        })
+        .catch(err => console.error("Error productos:", err));
 
-/* ======================
-   BUSCADOR FUNCIONAL
-====================== */
+    /* ======================
+       BUSCADOR FUNCIONAL
+    ====================== */
 
-buscador.addEventListener("input", (e) => {
+    buscador.addEventListener("input", (e) => {
 
-    const texto = e.target.value.toLowerCase().trim();
+        const texto = e.target.value.toLowerCase().trim();
 
-    if (!texto) {
-        sugerencias.style.display = "none";
-        sugerencias.innerHTML = "";
-        return;
-    }
+        if (!texto) {
+            sugerencias.innerHTML = "";
+            sugerencias.style.display = "none";
+            return;
+        }
 
-    const filtrados = productos.filter(p =>
-        p.nombre.toLowerCase().includes(texto)
-    );
+        const filtrados = productos.filter(p =>
+            p.nombre.toLowerCase().includes(texto)
+        );
 
-    sugerencias.innerHTML = filtrados.slice(0, 8).map(p => `
-        <div class="sugerencia-item" onclick="seleccionarProducto(${p.id})">
-            ${p.nombre}
-        </div>
-    `).join("");
+        if (filtrados.length === 0) {
+            sugerencias.innerHTML = "<div class='sugerencia-item'>Sin resultados</div>";
+            sugerencias.style.display = "block";
+            return;
+        }
 
-    sugerencias.style.display = "block";
-});
+        sugerencias.innerHTML = filtrados.slice(0, 8).map(p => `
+            <div class="sugerencia-item" onclick="seleccionarProducto(${p.id})">
+                ${p.nombre}
+            </div>
+        `).join("");
 
+        sugerencias.style.display = "block";
+    });
 });
 
 /* ======================
@@ -54,6 +65,8 @@ buscador.addEventListener("input", (e) => {
 function seleccionarProducto(id) {
 
     productoSeleccionado = productos.find(p => p.id === id);
+
+    if (!productoSeleccionado) return;
 
     const box = document.getElementById("seleccionActual");
 
@@ -70,6 +83,7 @@ function seleccionarProducto(id) {
     `;
 
     document.getElementById("sugerencias").style.display = "none";
+    document.getElementById("buscador").value = "";
 }
 
 /* ======================
@@ -81,19 +95,19 @@ function agregarPedido() {
     const cantidad = document.getElementById("cantidad").value;
 
     pedido.push({
-        ...productoSeleccionado,
+        nombre: productoSeleccionado.nombre,
         cantidad: parseInt(cantidad)
     });
 
     renderPedido();
 
-    document.getElementById("btnAceptar").classList.remove("oculto");
-
     document.getElementById("seleccionActual").classList.add("oculto");
+
+    document.getElementById("btnAceptar").classList.remove("oculto");
 }
 
 /* ======================
-   RENDER
+   RENDER PEDIDO
 ====================== */
 
 function renderPedido() {
@@ -102,7 +116,7 @@ function renderPedido() {
 
     cont.innerHTML = "";
 
-    pedido.forEach((p,i) => {
+    pedido.forEach((p, i) => {
 
         cont.innerHTML += `
             <div class="panel">
@@ -117,11 +131,12 @@ function renderPedido() {
    ELIMINAR
 ====================== */
 
-function eliminarItem(i){
-    pedido.splice(i,1);
+function eliminarItem(i) {
+
+    pedido.splice(i, 1);
     renderPedido();
 
-    if(pedido.length === 0){
+    if (pedido.length === 0) {
         document.getElementById("btnAceptar").classList.add("oculto");
     }
 }
@@ -130,7 +145,8 @@ function eliminarItem(i){
    PASO 2
 ====================== */
 
-function irPaso2(){
+function irPaso2() {
+
     document.getElementById("paso1").classList.add("oculto");
     document.getElementById("paso2").classList.remove("oculto");
 }
@@ -139,7 +155,7 @@ function irPaso2(){
    GUARDAR PEDIDO
 ====================== */
 
-function guardarPedido(){
+function guardarPedido() {
 
     const cliente = document.getElementById("cliente").value;
 
@@ -158,10 +174,10 @@ function guardarPedido(){
 }
 
 /* ======================
-   MOSTRAR ENTREGAS
+   ENTREGAS
 ====================== */
 
-function toggleEntregas(){
+function toggleEntregas() {
 
     const panel = document.getElementById("entregasPanel");
 
@@ -178,9 +194,9 @@ function toggleEntregas(){
 }
 
 /* ======================
-   BUSCADOR UI
+   BUSCADOR
 ====================== */
 
-function toggleSearch(){
+function toggleSearch() {
     document.getElementById("searchBox").classList.toggle("active");
 }
