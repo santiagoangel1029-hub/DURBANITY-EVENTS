@@ -1,96 +1,123 @@
-window.productos = [];
-window.seleccionados = [];
-
-let buscador, catalogo, seleccionados, btnAceptar;
+let productos = [];
+let pedido = [];
+let productoSeleccionado = null;
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    buscador = document.getElementById("buscador");
-    catalogo = document.getElementById("catalogoBusqueda");
-    seleccionados = document.getElementById("seleccionados");
-    btnAceptar = document.getElementById("btnAceptar");
+const buscador = document.getElementById("buscador");
+const sugerencias = document.getElementById("sugerencias");
 
-    /* CARGAR PRODUCTOS */
-    fetch("./productos.json")
-        .then(res => res.json())
-        .then(data => {
-            window.productos = data;
-            renderProductos(window.productos);
-        });
+/* ======================
+   CARGAR PRODUCTOS
+====================== */
 
-    /* BUSCADOR */
-    buscador.addEventListener("input", (e) => {
-
-        const texto = e.target.value.toLowerCase().trim();
-
-        if (!texto) {
-            renderProductos(window.productos);
-            return;
-        }
-
-        const filtrados = window.productos.filter(p =>
-            p.nombre.toLowerCase().includes(texto)
-        );
-
-        renderProductos(filtrados);
-    });
+fetch("./productos.json")
+.then(r => r.json())
+.then(data => {
+    productos = data;
 });
 
 /* ======================
-   RENDER PRODUCTOS
+   BUSCADOR (SOLO SUGERENCIAS)
 ====================== */
 
-function renderProductos(lista) {
+buscador.addEventListener("input", (e) => {
 
-    if (!catalogo) return;
+    const texto = e.target.value.toLowerCase().trim();
+    sugerencias.innerHTML = "";
 
-    catalogo.innerHTML = lista.map(p => `
-        <div class="card" onclick="agregarProducto(${p.id})" style="cursor:pointer;">
-            <img src="${p.imagen}" loading="lazy">
-            <h3>${p.nombre}</h3>
+    if (!texto) return;
+
+    const filtrados = productos.filter(p =>
+        p.nombre.toLowerCase().includes(texto)
+    );
+
+    sugerencias.innerHTML = filtrados.slice(0, 8).map(p => `
+        <div onclick="seleccionarProducto(${p.id})" class="sugerencia-item">
+            ${p.nombre}
         </div>
     `).join("");
+});
+
+});
+
+/* ======================
+   SELECCIONAR PRODUCTO
+====================== */
+
+function seleccionarProducto(id) {
+
+    productoSeleccionado = productos.find(p => p.id === id);
+
+    const box = document.getElementById("seleccionActual");
+
+    box.classList.remove("oculto");
+
+    box.innerHTML = `
+        <h4>${productoSeleccionado.nombre}</h4>
+
+        <input type="number" id="cantidad" min="1" value="1" class="qty">
+
+        <button onclick="agregarPedido()" class="btn-main">
+            Añadir
+        </button>
+    `;
 }
 
 /* ======================
-   AGREGAR PRODUCTO
+   AGREGAR A PEDIDO
 ====================== */
 
-function agregarProducto(id) {
+function agregarPedido() {
 
-    const producto = window.productos.find(p => p.id === id);
+    const cantidad = document.getElementById("cantidad").value;
 
-    if (!producto) return;
+    if (!productoSeleccionado) return;
 
-    window.seleccionados.push(producto);
+    pedido.push({
+        ...productoSeleccionado,
+        cantidad: parseInt(cantidad)
+    });
 
-    renderSeleccionados();
+    renderPedido();
 
-    btnAceptar.classList.remove("oculto");
+    document.getElementById("btnAceptar").classList.remove("oculto");
+
+    document.getElementById("seleccionActual").classList.add("oculto");
 }
 
 /* ======================
-   SELECCIONADOS
+   RENDER PEDIDO
 ====================== */
 
-function renderSeleccionados() {
+function renderPedido() {
 
-    if (!seleccionados) return;
+    const cont = document.getElementById("seleccionados");
 
-    seleccionados.innerHTML = window.seleccionados.map(p => `
-        <div class="card">
-            <img src="${p.imagen}">
-            <h3>${p.nombre}</h3>
-        </div>
-    `).join("");
+    cont.innerHTML = "";
+
+    pedido.forEach((p, i) => {
+
+        cont.innerHTML += `
+            <div class="item">
+                <span>${p.nombre} x ${p.cantidad}</span>
+                <button onclick="eliminarItem(${i})">❌</button>
+            </div>
+        `;
+    });
 }
 
 /* ======================
-   TOGGLE SEARCH
+   ELIMINAR ITEM
 ====================== */
 
-function toggleSearch() {
-    document.getElementById("searchBox").classList.toggle("active");
+function eliminarItem(i) {
+    pedido.splice(i,1);
+    renderPedido();
+
+    if (pedido.length === 0) {
+        document.getElementById("btnAceptar").classList.add("oculto");
+    }
 }
 
 /* ======================
@@ -98,6 +125,7 @@ function toggleSearch() {
 ====================== */
 
 function irPaso2() {
+
     document.getElementById("paso1").classList.add("oculto");
     document.getElementById("paso2").classList.remove("oculto");
 }
@@ -108,18 +136,16 @@ function irPaso2() {
 
 function guardarPedido() {
 
-    const pedido = {
-        cliente: document.getElementById("cliente").value,
-        entrega: document.getElementById("dirEntrega").value,
-        recogida: document.getElementById("dirRecogida").value,
-        fechaEntrega: document.getElementById("fechaEntrega").value,
-        fechaRecogida: document.getElementById("fechaRecogida").value,
-        productos: window.seleccionados
+    const cliente = document.getElementById("cliente").value;
+
+    const pedidoFinal = {
+        cliente,
+        productos: pedido
     };
 
-    let data = JSON.parse(localStorage.getItem("entregas")) || [];
+    let data = JSON.parse(localStorage.getItem("entregas") || "[]");
 
-    data.push(pedido);
+    data.push(pedidoFinal);
 
     localStorage.setItem("entregas", JSON.stringify(data));
 
@@ -129,21 +155,31 @@ function guardarPedido() {
 }
 
 /* ======================
-   ENTREGAS PENDIENTES
+   TOGGLE ENTREGAS
 ====================== */
 
 function toggleEntregas() {
 
     const panel = document.getElementById("entregasPanel");
 
-    const data = JSON.parse(localStorage.getItem("entregas")) || [];
+    panel.classList.toggle("oculto");
+
+    let data = JSON.parse(localStorage.getItem("entregas") || "[]");
 
     panel.innerHTML = data.map(p => `
-        <div class="card">
-            <h3>${p.cliente}</h3>
-            <p>${p.entrega}</p>
+        <div class="panel">
+            <b>${p.cliente}</b>
+            <br>
+            ${p.productos.map(x => `• ${x.nombre} x ${x.cantidad}`).join("<br>")}
         </div>
     `).join("");
+}
 
-    panel.classList.toggle("oculto");
+/* ======================
+   SEARCH UI
+====================== */
+
+function toggleSearch() {
+
+    document.getElementById("searchBox").classList.toggle("active");
 }
