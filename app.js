@@ -78,3 +78,91 @@ function scrollCatalogo() {
         behavior: "smooth"
     });
 }
+/* ======================
+   BUSCADOR PREMIUM
+====================== */
+
+const searchBox = document.getElementById("searchBox");
+const sugerencias = document.getElementById("sugerencias");
+
+// ABRIR / CERRAR
+function toggleSearch() {
+
+    searchBox.classList.toggle("active");
+
+    buscador.focus();
+}
+
+/* ======================
+   SUGERENCIAS EN VIVO
+====================== */
+
+buscador.addEventListener("input", (e) => {
+
+    const texto = e.target.value.toLowerCase();
+
+    if (texto.length === 0) {
+
+        sugerencias.style.display = "none";
+
+        return;
+    }
+
+    const coincidencias = productos.filter(p =>
+        p.nombre.toLowerCase().includes(texto)
+    );
+
+    // SOLO TEXTO
+    sugerencias.innerHTML = coincidencias
+        .slice(0, 5)
+        .map(p => `
+            <div class="sugerencia-item">
+                ${p.nombre}
+            </div>
+        `)
+        .join("");
+
+    sugerencias.style.display = "block";
+});
+
+/* ======================
+   ENTER = MOSTRAR PRODUCTOS
+====================== */
+
+buscador.addEventListener("keypress", (e) => {
+
+    if (e.key === "Enter") {
+
+        const texto = buscador.value.toLowerCase();
+
+        const filtrados = productos.filter(p =>
+            p.nombre.toLowerCase().includes(texto)
+        );
+
+        mostrar(filtrados);
+
+        sugerencias.style.display = "none";
+    }
+});
+
+/* ======================
+   CLICK EN SUGERENCIA
+====================== */
+
+sugerencias.addEventListener("click", (e) => {
+
+    if (e.target.classList.contains("sugerencia-item")) {
+
+        buscador.value = e.target.innerText;
+
+        const texto = buscador.value.toLowerCase();
+
+        const filtrados = productos.filter(p =>
+            p.nombre.toLowerCase().includes(texto)
+        );
+
+        mostrar(filtrados);
+
+        sugerencias.style.display = "none";
+    }
+});
