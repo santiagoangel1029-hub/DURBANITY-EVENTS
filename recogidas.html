@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Recogidas</title>
+    <title>Recogidas Pendientes</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -16,178 +16,43 @@
 
 <body class="pedidos-body">
 
-    <div class="pedido-container">
+<div class="pedido-container">
 
-        <h1>🏪 Pedidos de Recogidas</h1>
+    <h1>🏪 Recogidas pendientes</h1>
 
-        <div class="cliente-box">
+    <div id="recogidasPendientes"></div>
 
-            <input
-                type="text"
-                id="cliente"
-                placeholder="Nombre del cliente"
-            >
+    <h2 class="titulo-guardados">
+        ✅ Pedidos guardados
+    </h2>
 
-        </div>
+    <div id="pedidosFinalizados"></div>
 
-        <div id="catalogoPedidos"
-             class="grid-pedidos">
-
-        </div>
-
-        <div class="guardar-box">
-
-            <button onclick="guardarPedido()">
-                💾 Guardar pedido
-            </button>
-
-        </div>
-
-        <h2 class="titulo-guardados">
-            Pedidos guardados
-        </h2>
-
-        <div id="pedidosGuardados"></div>
-
-    </div>
+</div>
 
 <script>
 
-let productos = [];
+/* ======================
+   MOSTRAR RECOGIDAS
+====================== */
 
-let pedidoActual = [];
-
-fetch("productos.json")
-    .then(res => res.json())
-    .then(data => {
-
-        productos = data;
-
-        renderCatalogo();
-
-    });
-
-function renderCatalogo() {
-
-    const catalogo =
-        document.getElementById("catalogoPedidos");
-
-    catalogo.innerHTML = "";
-
-    productos.forEach(p => {
-
-        catalogo.innerHTML += `
-
-            <div class="pedido-producto">
-
-                <img src="${p.imagen}">
-
-                <h3>${p.nombre}</h3>
-
-                <input
-                    type="number"
-                    min="1"
-                    value="1"
-                    id="cantidad-${p.nombre}"
-                >
-
-                <button
-                    onclick="agregarProducto('${p.nombre}')">
-
-                    Añadir
-
-                </button>
-
-            </div>
-
-        `;
-    });
-}
-
-function agregarProducto(nombre) {
-
-    const input =
-        document.getElementById(
-            `cantidad-${nombre}`
-        );
-
-    const cantidad =
-        parseInt(input.value) || 1;
-
-    pedidoActual.push({
-
-        nombre,
-        cantidad
-
-    });
-
-    alert(nombre + " añadido");
-}
-
-function guardarPedido() {
-
-    const cliente =
-        document.getElementById("cliente").value;
-
-    if (!cliente) {
-
-        alert("Escribe nombre cliente");
-
-        return;
-    }
-
-    if (pedidoActual.length === 0) {
-
-        alert("No hay productos");
-
-        return;
-    }
-
-    const pedidos =
-        JSON.parse(
-            localStorage.getItem(
-                "pedidos-recogidas"
-            )
-        ) || [];
-
-    pedidos.push({
-
-        cliente,
-        productos: pedidoActual
-
-    });
-
-    localStorage.setItem(
-        "pedidos-recogidas",
-        JSON.stringify(pedidos)
-    );
-
-    pedidoActual = [];
-
-    document.getElementById("cliente").value = "";
-
-    mostrarPedidos();
-
-    alert("Pedido guardado");
-}
-
-function mostrarPedidos() {
+function mostrarRecogidas() {
 
     const contenedor =
         document.getElementById(
-            "pedidosGuardados"
+            "recogidasPendientes"
         );
 
-    const pedidos =
+    const recogidas =
         JSON.parse(
             localStorage.getItem(
-                "pedidos-recogidas"
+                "recogidas-pendientes"
             )
         ) || [];
 
     contenedor.innerHTML = "";
 
-    pedidos.forEach((pedido, index) => {
+    recogidas.forEach((pedido, index) => {
 
         contenedor.innerHTML += `
 
@@ -200,10 +65,10 @@ function mostrarPedidos() {
                     </h3>
 
                     <button
-                        class="btn-delete"
-                        onclick="eliminarPedido(${index})">
+                        class="btn-ready"
+                        onclick="marcarRecogido(${index})">
 
-                        ✖
+                        ✅ Recogido
 
                     </button>
 
@@ -224,26 +89,93 @@ function mostrarPedidos() {
     });
 }
 
-function eliminarPedido(index) {
+/* ======================
+   MARCAR RECOGIDO
+====================== */
 
-    const pedidos =
+function marcarRecogido(index) {
+
+    const recogidas =
         JSON.parse(
             localStorage.getItem(
-                "pedidos-recogidas"
+                "recogidas-pendientes"
             )
         ) || [];
 
-    pedidos.splice(index, 1);
+    const finalizados =
+        JSON.parse(
+            localStorage.getItem(
+                "pedidos-finalizados"
+            )
+        ) || [];
+
+    finalizados.push(recogidas[index]);
+
+    recogidas.splice(index, 1);
 
     localStorage.setItem(
-        "pedidos-recogidas",
-        JSON.stringify(pedidos)
+        "recogidas-pendientes",
+        JSON.stringify(recogidas)
     );
 
-    mostrarPedidos();
+    localStorage.setItem(
+        "pedidos-finalizados",
+        JSON.stringify(finalizados)
+    );
+
+    mostrarRecogidas();
+
+    mostrarFinalizados();
 }
 
-mostrarPedidos();
+/* ======================
+   MOSTRAR FINALIZADOS
+====================== */
+
+function mostrarFinalizados() {
+
+    const contenedor =
+        document.getElementById(
+            "pedidosFinalizados"
+        );
+
+    const finalizados =
+        JSON.parse(
+            localStorage.getItem(
+                "pedidos-finalizados"
+            )
+        ) || [];
+
+    contenedor.innerHTML = "";
+
+    finalizados.forEach(pedido => {
+
+        contenedor.innerHTML += `
+
+            <div class="pedido-finalizado">
+
+                <h3>
+                    ✅ ${pedido.cliente}
+                </h3>
+
+                ${pedido.productos.map(p => `
+
+                    <p>
+                        ${p.nombre}
+                        x${p.cantidad}
+                    </p>
+
+                `).join("")}
+
+            </div>
+
+        `;
+    });
+}
+
+mostrarRecogidas();
+
+mostrarFinalizados();
 
 </script>
 
